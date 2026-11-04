@@ -21,13 +21,21 @@ Abra o [`index.html`](index.html) no navegador para ver o catálogo com as 10 p�
 ```
 landing-pages/
 ├── index.html          # catálogo com todos os comércios
-├── assets/style.css    # estilo compartilhado (cada página troca as cores com variáveis CSS)
+├── assets/style.css    # estilo compartilhado (cada página define só --a e --b, as cores de destaque)
+├── assets/app.js       # animação ao rolar, brilho nos cards e filtro do catálogo
 └── <comercio>/index.html
 ```
 
-Cada página tem: menu fixo, hero com chamada e botões (WhatsApp, telefone, rota),
-grade de serviços, diferenciais, contato com mapa do Google incorporado e rodapé.
-É responsiva e funciona do celular ao desktop.
+## Design
+
+Visual escuro e futurista: fundo com grade e brilhos em degradê, menu flutuante com efeito de vidro
+(glassmorphism), ícones SVG desenhados em linha, anéis em órbita no topo de cada página e mapa do
+Google com filtro escuro. Fontes: Space Grotesk (títulos) e Inter (textos), do Google Fonts.
+
+Cada página tem: menu fixo, hero com chamada e botões (WhatsApp, telefone, rota), faixa de números,
+grade de serviços, diferenciais numerados, contato com mapa incorporado e rodapé.
+É responsiva (do celular ao desktop) e respeita quem prefere menos animação (`prefers-reduced-motion`).
+O catálogo tem filtro por categoria: Alimentação, Automotivo, Pet e Saúde e Beleza.
 
 ## Fontes e aviso
 
