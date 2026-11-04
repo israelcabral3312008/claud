@@ -20,22 +20,31 @@ Abra o [`index.html`](index.html) no navegador para ver o catálogo com as 10 p�
 
 ```
 landing-pages/
-├── index.html          # catálogo com todos os comércios
-├── assets/style.css    # estilo compartilhado (cada página define só --a e --b, as cores de destaque)
-├── assets/app.js       # animação ao rolar, brilho nos cards e filtro do catálogo
+├── index.html          # catálogo: busca, filtros, ordenação e modo grade/lista
+├── assets/style.css    # visual compartilhado (cada página define só --a e --ink)
+├── assets/app.js       # todas as interações (comentadas por seção)
 └── <comercio>/index.html
 ```
 
-## Design
+## O que cada página tem
 
-Visual escuro e futurista: fundo com grade e brilhos em degradê, menu flutuante com efeito de vidro
-(glassmorphism), ícones SVG desenhados em linha, anéis em órbita no topo de cada página e mapa do
-Google com filtro escuro. Fontes: Space Grotesk (títulos) e Inter (textos), do Google Fonts.
+- **Topo com foto** em tela cheia, efeito parallax, nota com estrelas e botões de ação.
+- **Faixa de confiança** com contadores animados (nota e número de avaliações).
+- **Montador de pedido ou agendamento** que gera a mensagem em tempo real, com prévia
+  no estilo de conversa:
+  - padarias, pizzaria e pet shop de produtos: itens com botões de + e −;
+  - pet shop de banho e tosa, academia, restaurante, estética e oficinas: serviço, data e período.
+  - A mensagem pode ser enviada pelo WhatsApp (quando o comércio tem celular), copiada ou
+    usada numa ligação.
+- **Galeria** com tela cheia: setas do teclado, Esc e arrastar para os lados no celular.
+- **Diferenciais**, **perguntas frequentes** (abre uma de cada vez) e **contato com mapa**.
+- **Tema claro e escuro**: segue o sistema, e a escolha fica salva no navegador.
+- **No celular**: menu próprio, barra fixa com Rota, Ligar e Pedir/Agendar, e botão flutuante.
+- Barra de leitura no topo, menu que destaca a seção atual e animações que respeitam
+  `prefers-reduced-motion`.
 
-Cada página tem: menu fixo, hero com chamada e botões (WhatsApp, telefone, rota), faixa de números,
-grade de serviços, diferenciais numerados, contato com mapa incorporado e rodapé.
-É responsiva (do celular ao desktop) e respeita quem prefere menos animação (`prefers-reduced-motion`).
-O catálogo tem filtro por categoria: Alimentação, Automotivo, Pet e Saúde e Beleza.
+Fotos: imagens ilustrativas do Unsplash. Se alguma não carregar, aparece um fundo
+na cor do comércio com o ícone dele.
 
 ## Fontes e aviso
 
