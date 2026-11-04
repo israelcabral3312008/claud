@@ -1,0 +1,78 @@
+/* Estilo compartilhado das landing pages.
+   Cada página define --cor, --cor2, --bg, --fg e --card no <head>. */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--fg);line-height:1.6}
+a{color:inherit}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+
+/* Menu */
+.topo{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid color-mix(in srgb,var(--fg) 10%,transparent)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+.logo{font-weight:800;text-decoration:none;font-size:1.1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav nav{display:flex;gap:20px}
+.nav nav a{text-decoration:none;font-weight:500;opacity:.8}
+.nav nav a:hover{opacity:1;color:var(--cor)}
+
+/* Hero */
+.hero{background:linear-gradient(135deg,var(--cor2),var(--bg));padding:72px 0}
+.dark .hero{background:radial-gradient(circle at 80% 20%,color-mix(in srgb,var(--cor) 35%,transparent),var(--bg) 60%)}
+.hero-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:32px;align-items:center}
+.badge{display:inline-block;background:var(--cor);color:#fff;font-size:.8rem;font-weight:700;padding:4px 12px;border-radius:999px;margin-bottom:16px}
+.dark .badge{color:#111}
+h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.15;margin-bottom:16px}
+.lead{font-size:1.15rem;opacity:.85;max-width:560px}
+.rating{margin-top:16px;font-weight:700}
+.rating span{font-weight:400;opacity:.7}
+.hero-art{font-size:clamp(6rem,18vw,12rem);text-align:center;filter:drop-shadow(0 12px 24px rgba(0,0,0,.18))}
+.hero-index{text-align:center}
+.hero-index .lead{margin:0 auto}
+
+/* Botões */
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:12px;font-weight:700;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.15)}
+.btn-main{background:var(--cor);color:#fff}
+.dark .btn-main{color:#111}
+.btn-ghost{border:2px solid var(--cor);color:var(--fg)}
+
+/* Seções */
+.secao{padding:64px 16px}
+h2{font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.card{background:var(--card);border:1px solid color-mix(in srgb,var(--fg) 10%,transparent);border-radius:16px;padding:24px;transition:transform .2s,border-color .2s}
+.card:hover{transform:translateY(-4px);border-color:var(--cor)}
+.ico{font-size:2rem;margin-bottom:8px}
+.card h3{margin-bottom:6px}
+.card p{opacity:.8}
+
+.faixa{background:var(--cor);color:#fff;padding:56px 0}
+.dark .faixa{color:#111}
+.difs{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;font-size:1.1rem;font-weight:600}
+
+.contato{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+.info{list-style:none;display:grid;gap:10px;font-size:1.05rem}
+.contato iframe{width:100%;height:340px;border:0;border-radius:16px}
+
+/* Catálogo */
+.lojas{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.loja{display:flex;gap:16px;background:var(--card);border-radius:16px;padding:20px;text-decoration:none;border-left:6px solid var(--cor);box-shadow:0 2px 8px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s}
+.loja:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(0,0,0,.12)}
+.loja-ico{font-size:2.6rem}
+.loja-seg{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--cor)}
+.loja h3{margin:2px 0 4px}
+.loja p{font-size:.9rem;opacity:.75}
+.loja-nota{font-weight:700;opacity:1!important}
+
+/* Rodapé */
+.rodape{padding:32px 0;border-top:1px solid color-mix(in srgb,var(--fg) 10%,transparent);font-size:.9rem}
+.aviso{opacity:.6;margin-top:8px}
+
+/* Celular */
+@media (max-width:760px){
+  .nav nav{display:none}
+  .hero{padding:48px 0}
+  .hero-grid,.contato{grid-template-columns:1fr}
+  .hero-art{order:-1;font-size:5rem}
+  .btn{flex:1 1 100%;justify-content:center}
+}
