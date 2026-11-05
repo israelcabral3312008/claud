@@ -1,41 +1,24 @@
-# Israel Cabral · Portfólio
+# Site Que Vende
 
-Portfólio pessoal com os meus projetos de desenvolvimento web.
+Página de vendas de sites para comércios locais (oferta Black November), com modelos demonstrativos.
 
-## O que tem aqui
+## Arquivos
 
-| Pasta / arquivo | O que é |
+| Arquivo / pasta | O que é |
 |---|---|
-| `index.html` | O portfólio (página inicial do site) |
-| `js/config.js` | **Seus dados**: nome, cidade, WhatsApp, Instagram, e-mail e GitHub |
-| `css/portfolio.css`, `js/portfolio.js` | Visual e interações do portfólio |
-| `img/` | Prévias dos projetos |
-| `landing-pages/` | Projeto “Top 10 comércios de Águas Claras”: catálogo + 10 landing pages |
+| `index.html` | Página de vendas, com vídeo (VSL), oferta, garantia, formulário e perguntas frequentes |
+| `js/config.js` | **Edite aqui**: WhatsApp, Instagram, vídeo, preço, parcelas, prazo, vagas e bônus |
+| `css/vendas.css`, `js/vendas.js` | Visual e funcionamento da página |
+| `landing-pages/` | 10 modelos demonstrativos de sites para comércios de Águas Claras |
+| `img/` | Imagens dos modelos |
 
-## Como colocar seus contatos
+## Antes de divulgar
 
-Abra `js/config.js` e preencha:
+1. Em `js/config.js`, coloque o seu **WhatsApp**. Sem ele, o botão do formulário não envia.
+2. Grave a VSL, suba no YouTube como "Não listado" e cole o link em `video`.
+3. Confira se **preço, prazo, vagas, bônus e garantia** são verdade. A página mostra tudo isso para o cliente.
 
-```js
-whatsapp: "5561999998888",   // DDI + DDD + número, só dígitos
-instagram: "seu.usuario",    // sem o @
-email: "voce@email.com",
-```
+## Publicar
 
-Quando um campo fica vazio, o botão dele some da página. A seção do Instagram só aparece quando você preenche o usuário.
-
-## Como publicar (GitHub Pages)
-
-1. No GitHub, abra **Settings → Pages**.
-2. Em **Branch**, escolha `main` e a pasta `/ (root)`, depois clique em **Save**.
-3. Em um ou dois minutos o site fica no ar em:
-   - Portfólio: `https://israelcabral3312008.github.io/claud/`
-   - Landing pages: `https://israelcabral3312008.github.io/claud/landing-pages/`
-
-## Recursos do portfólio
-
-- Tema claro e escuro, que segue o sistema e guarda a sua escolha
-- Título com texto “digitando”, telas que inclinam com o mouse e contadores animados
-- Filtro de projetos (Sites e Estudos) e janela de detalhes
-- Formulário que monta a mensagem e envia pelo WhatsApp, pelo e-mail ou copia o texto
-- Menu de celular, barra de leitura no topo e animações que respeitam “reduzir movimento”
+Em **Settings → Pages**, escolha Branch `main` e a pasta `/ (root)`, depois clique em **Save**.
+Endereço: `https://israelcabral3312008.github.io/claud/`

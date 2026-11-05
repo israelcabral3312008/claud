@@ -3,254 +3,223 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Israel Cabral · Desenvolvedor Web</title>
-<meta name="description" content="Portfólio de Israel Cabral: landing pages e sites responsivos para comércios locais, com pedido e agendamento pelo WhatsApp.">
-<meta property="og:title" content="Israel Cabral · Desenvolvedor Web">
-<meta property="og:description" content="Landing pages e sites responsivos para comércios locais.">
-<meta property="og:image" content="img/proj-catalogo.jpg">
-<script>try{var t=localStorage.getItem('pf-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<title>Site Que Vende · Mais clientes para o seu comércio</title>
+<meta name="description" content="Site profissional para o seu comércio, com pedidos no WhatsApp e presença no Google. Pronto em poucos dias, sem dor de cabeça: eu cuido de tudo.">
+<meta property="og:title" content="Seu comércio recebendo mais clientes pelo WhatsApp">
+<meta property="og:description" content="Site profissional pronto em poucos dias. Oferta Black November para a sua região.">
+<meta property="og:image" content="img/proj-bonnapan.jpg">
+<meta name="theme-color" content="#0a0a0a">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/portfolio.css">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/vendas.css">
 </head>
 <body>
-<div class="progress" aria-hidden="true"></div>
+
+<!-- Faixa de urgência -->
+<div class="topbar">
+  <span class="tb-tag">BLACK NOVEMBER</span>
+  <span class="tb-txt">Oferta para <b data-cfg="regiao">Águas Claras e região</b><span data-needs="fimDaOferta"> · termina em <b class="cd-inline">--</b></span><span data-needs="vagas"> · só <b data-cfg="vagas">10</b> vagas este mês</span></span>
+</div>
 
 <header class="header">
   <div class="wrap header-in">
-    <a class="brand" href="#inicio"><span class="mark" data-cfg="iniciais">IC</span><span data-cfg="nome">Israel Cabral</span></a>
-    <nav class="menu" id="menu">
-      <a href="#sobre">Sobre</a><a href="#servicos">Serviços</a><a href="#projetos">Projetos</a><a href="#processo">Processo</a><a href="#instagram" data-needs="instagram">Instagram</a><a href="#contato">Contato</a>
-    </nav>
-    <div class="acts">
-      <button class="icon-btn theme" type="button" aria-label="Alternar tema claro/escuro">
-        <svg class="i i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-        <svg class="i i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-      </button>
-      <a class="btn btn-a btn-sm hide-sm" href="#contato">Vamos conversar</a>
-      <button class="icon-btn burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
-        <svg class="i i-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-        <svg class="i i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
-      </button>
-    </div>
+    <a class="brand" href="#topo"><span class="brand-mark">S</span><span data-cfg="marca">Site Que Vende</span></a>
+    <a class="btn btn-y btn-sm" data-cta href="#oferta">Quero meu site</a>
   </div>
 </header>
 
-<main>
-<!-- ===== Início ===== -->
-<section id="inicio" class="hero wrap">
-  <div class="hero-text">
-    <span class="status"><span class="dot"></span>Disponível para novos projetos</span>
-    <h1>Olá, eu sou <span class="grad" data-cfg="primeiro">Israel</span>.<br>Eu crio <span class="typed" aria-live="polite">sites para comércios</span><span class="caret" aria-hidden="true"></span></h1>
-    <p class="lead">Desenvolvedor web em <span data-cfg="cidade">Brasília - DF</span>. Faço landing pages rápidas, bonitas e que funcionam no celular, com pedido e agendamento direto pelo WhatsApp.</p>
-    <div class="ctas">
-      <a class="btn btn-a" href="#projetos">Ver projetos
-        <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      <a class="btn btn-light" href="#contato">Pedir um orçamento</a>
+<main id="topo">
+<!-- ===== HERO + VSL ===== -->
+<section class="hero">
+  <div class="wrap hero-in">
+    <p class="eyebrow">Para donos de comércio de <span data-cfg="regiao">Águas Claras e região</span></p>
+    <h1>Seu comércio recebendo <span class="hl">mais clientes pelo WhatsApp</span>, com um site profissional pronto em <span data-cfg="diasEntrega">7</span> dias.</h1>
+    <p class="sub">Você não precisa entender nada de internet. <b>Eu cuido de tudo</b>: do visual ao Google, até o botão que leva o cliente direto pro seu WhatsApp.</p>
+
+    <div class="vsl" id="vsl">
+      <button class="vsl-cover" type="button" aria-label="Assistir ao vídeo">
+        <img src="img/proj-bonnapan.jpg" alt="">
+        <span class="vsl-shade"></span>
+        <span class="vsl-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>
+        <span class="vsl-cap"><b>ASSISTA ANTES QUE SAIA DO AR</b><small>Como o seu comércio pode receber mais pedidos sem gastar com anúncio</small></span>
+        <span class="vsl-sound">🔊 Clique para ouvir</span>
+      </button>
     </div>
-    <div class="socials">
-      <a data-link="instagram" data-needs="instagram" target="_blank" rel="noopener" aria-label="Instagram"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg></a>
-      <a data-link="github" data-needs="github" target="_blank" rel="noopener" aria-label="GitHub"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65S8.93 17.38 9 18v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg></a>
-      <a data-link="whatsapp" data-needs="whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg></a>
-      <a data-link="email" data-needs="email" aria-label="E-mail"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></a>
-    </div>
-  </div>
-  <div class="hero-art" aria-hidden="true">
-    <div class="stack" data-tilt>
-      <figure class="browser b3"><div class="bar"><i></i><i></i><i></i></div><img src="img/proj-pet.jpg" alt=""></figure>
-      <figure class="browser b2"><div class="bar"><i></i><i></i><i></i></div><img src="img/proj-omega.jpg" alt=""></figure>
-      <figure class="browser b1"><div class="bar"><i></i><i></i><i></i><span>aguas-claras/index.html</span></div><img src="img/proj-catalogo.jpg" alt=""></figure>
-    </div>
-    <div class="float f1"><b data-count="10">10</b><span>landing pages<br>publicadas</span></div>
-    <div class="float f2"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg><span>100% responsivo</span></div>
-  </div>
-</section>
 
-<section class="wrap marquee" aria-label="Tecnologias">
-  <div class="track">
-    <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Design responsivo</span><span>Acessibilidade</span><span>Git &amp; GitHub</span><span>SEO básico</span><span>UI/UX</span>
-    <span aria-hidden="true">HTML5</span><span aria-hidden="true">CSS3</span><span aria-hidden="true">JavaScript</span><span aria-hidden="true">Design responsivo</span><span aria-hidden="true">Acessibilidade</span><span aria-hidden="true">Git &amp; GitHub</span><span aria-hidden="true">SEO básico</span><span aria-hidden="true">UI/UX</span>
-  </div>
-</section>
-
-<!-- ===== Sobre ===== -->
-<section id="sobre" class="wrap secao about">
-  <div class="reveal">
-    <span class="kicker">Sobre mim</span>
-    <h2>Sites simples de usar, feitos para vender mais.</h2>
-  </div>
-  <div class="about-body reveal">
-    <p>Sou estudante de Informática e desenvolvedor web. Gosto de transformar o comércio do bairro em presença digital de verdade: página bonita, carregamento rápido e um botão que leva o cliente direto para o WhatsApp.</p>
-    <p>Cada projeto nasce pensando no celular primeiro, com cuidado em acessibilidade, tema claro e escuro e animações leves.</p>
-    <ul class="skills">
-      <li><span>HTML &amp; CSS</span><i style="--w:90%"></i></li>
-      <li><span>JavaScript</span><i style="--w:75%"></i></li>
-      <li><span>Design responsivo</span><i style="--w:90%"></i></li>
-      <li><span>Git &amp; GitHub</span><i style="--w:70%"></i></li>
-    </ul>
-  </div>
-</section>
-
-<section class="wrap stats reveal">
-  <div><strong data-count="10">10</strong><span>landing pages criadas</span></div>
-  <div><strong data-count="4">4</strong><span>segmentos atendidos</span></div>
-  <div><strong data-count="3">3</strong><span>versões de design</span></div>
-  <div><strong>100%</strong><span>responsivo e acessível</span></div>
-</section>
-
-<!-- ===== Serviços ===== -->
-<section id="servicos" class="wrap secao">
-  <div class="sec-head reveal"><span class="kicker">Serviços</span><h2>O que eu posso fazer pelo seu negócio</h2></div>
-  <div class="services">
-    <article class="svc reveal"><span class="svc-ico"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M2 7h20"/></svg></span><h3>Landing page para comércio</h3><p>Uma página com a cara da sua loja: serviços, fotos, mapa, avaliações e botões de contato.</p></article>
-    <article class="svc reveal" style="--d:80ms"><span class="svc-ico"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg></span><h3>Pedido e agendamento no WhatsApp</h3><p>O cliente escolhe itens ou horário e a mensagem chega pronta no seu WhatsApp.</p></article>
-    <article class="svc reveal" style="--d:160ms"><span class="svc-ico"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><h3>Site institucional</h3><p>Várias páginas para apresentar sua empresa, equipe e história, com visual profissional.</p></article>
-    <article class="svc reveal" style="--d:240ms"><span class="svc-ico"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><h3>Ajustes e manutenção</h3><p>Atualizo textos, fotos e informações do seu site sempre que precisar.</p></article>
-  </div>
-</section>
-
-<!-- ===== Projetos ===== -->
-<section id="projetos" class="wrap secao">
-  <div class="sec-head row reveal">
-    <div><span class="kicker">Projetos</span><h2>Trabalhos recentes</h2></div>
-    <div class="tabs" role="group" aria-label="Filtrar projetos">
-      <button type="button" class="tab on" data-f="todos">Todos</button>
-      <button type="button" class="tab" data-f="web">Sites</button>
-      <button type="button" class="tab" data-f="estudo">Estudos</button>
+    <div class="hero-cta">
+      <a class="btn btn-y btn-xl" data-cta href="#oferta">QUERO MAIS CLIENTES <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <ul class="micro">
+        <li>✔ Pronto em <span data-cfg="diasEntrega">7</span> dias</li>
+        <li>✔ Funciona no celular</li>
+        <li>✔ Você só paga depois de aprovar o modelo</li>
+      </ul>
     </div>
   </div>
+</section>
 
-  <article class="featured reveal" data-tipo="web">
-    <a class="feat-img" href="landing-pages/index.html"><figure class="browser"><div class="bar"><i></i><i></i><i></i><span>landing-pages/index.html</span></div><img src="img/proj-catalogo.jpg" alt="Catálogo com os 10 comércios de Águas Claras" loading="lazy"></figure></a>
-    <div class="feat-body">
-      <span class="badge">Destaque</span>
-      <h3>Top 10 comércios de Águas Claras</h3>
-      <p>Catálogo com busca, filtros e ordenação e uma landing page para cada comércio do bairro, com montador de pedido e agendamento que gera a mensagem pronta para o WhatsApp.</p>
-      <ul class="tags"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Responsivo</li><li>Tema escuro</li></ul>
-      <div class="ctas">
-        <a class="btn btn-a" href="landing-pages/index.html">Ver ao vivo</a>
-        <button type="button" class="btn btn-light" data-open="aguas">Detalhes</button>
-      </div>
+<!-- ===== DOR ===== -->
+<section class="sec wrap">
+  <h2 class="center reveal">Se você se identifica com <span class="hl">pelo menos uma</span> dessas, continue lendo:</h2>
+  <div class="pains">
+    <div class="pain reveal">😩 <p>O cliente procura seu comércio no Google e <b>encontra o concorrente</b>.</p></div>
+    <div class="pain reveal" style="--d:60ms">📵 <p>Você depende só do Instagram e do boca a boca, e <b>tem semana que fica parado</b>.</p></div>
+    <div class="pain reveal" style="--d:120ms">🤷 <p>Quando perguntam “tem site?”, você <b>fica sem resposta</b>.</p></div>
+    <div class="pain reveal" style="--d:180ms">⏳ <p>Já pensou em fazer um site, mas achou <b>caro, demorado e complicado</b>.</p></div>
+  </div>
+  <p class="bridge reveal">O problema não é o seu produto. <b>É que o cliente não te encontra</b> e, quando encontra, não sabe como pedir.</p>
+</section>
+
+<!-- ===== SOLUÇÃO ===== -->
+<section class="sec sec-dark">
+  <div class="wrap">
+    <span class="kicker reveal">A solução</span>
+    <h2 class="reveal">Um site feito para <span class="hl">transformar visitas em mensagens</span> no seu WhatsApp.</h2>
+    <div class="feats">
+      <article class="feat reveal"><span class="ico">📲</span><h3>Pedido pronto no WhatsApp</h3><p>O cliente escolhe o que quer e a mensagem chega pronta para você responder. Sem ligação perdida.</p></article>
+      <article class="feat reveal" style="--d:60ms"><span class="ico">📍</span><h3>Aparece no Google e no Maps</h3><p>Seu endereço, horário e rota a um toque. Quem procura na região te encontra.</p></article>
+      <article class="feat reveal" style="--d:120ms"><span class="ico">⭐</span><h3>Passa confiança</h3><p>Fotos, serviços, avaliações e perguntas frequentes. O cliente decide antes mesmo de chegar.</p></article>
+      <article class="feat reveal" style="--d:180ms"><span class="ico">⚡</span><h3>Rápido e no celular</h3><p>Abre em segundos no celular, que é onde o seu cliente está.</p></article>
     </div>
-  </article>
-
-  <div class="projects">
-    <article class="proj reveal" data-tipo="web">
-      <a class="proj-img" href="landing-pages/bonnapan/index.html"><img src="img/proj-bonnapan.jpg" alt="Landing page da padaria Bonnapan" loading="lazy"></a>
-      <div class="proj-body"><h3>Padaria · Montador de pedido</h3><p>Itens com + e −, prévia da mensagem e envio por telefone ou WhatsApp.</p><a class="link" href="landing-pages/bonnapan/index.html">Abrir página →</a></div>
-    </article>
-    <article class="proj reveal" data-tipo="web" style="--d:80ms">
-      <a class="proj-img" href="landing-pages/omega-pneus/index.html"><img src="img/proj-omega.jpg" alt="Landing page da Omega Pneus no modo escuro" loading="lazy"></a>
-      <div class="proj-body"><h3>Oficina · Agendamento</h3><p>Escolha do serviço, data, período e modelo do carro, com modo escuro.</p><a class="link" href="landing-pages/omega-pneus/index.html">Abrir página →</a></div>
-    </article>
-    <article class="proj reveal" data-tipo="web" style="--d:160ms">
-      <a class="proj-img" href="landing-pages/pet-happy/index.html"><img src="img/proj-pet.jpg" alt="Landing page do pet shop Pet Happy" loading="lazy"></a>
-      <div class="proj-body"><h3>Pet shop · Banho e tosa</h3><p>Galeria em tela cheia, perguntas frequentes e barra de ações no celular.</p><a class="link" href="landing-pages/pet-happy/index.html">Abrir página →</a></div>
-    </article>
-    <article class="proj code reveal" data-tipo="estudo">
-      <div class="proj-img code-art"><pre><span class="c">// TCC 2026 · 3º B · Equipe 5</span>
-<span class="k">const</span> bot = <span class="k">new</span> <span class="f">Chatbot</span>();
-bot.<span class="f">responder</span>(<span class="s">"Olá!"</span>);</pre></div>
-      <div class="proj-body"><h3>Chatbot · TCC 2026</h3><p>Projeto de conclusão de curso desenvolvido em equipe.</p><a class="link" href="https://github.com/informaticaseed/tcc-2026-3b-equipe-5-chatbot" target="_blank" rel="noopener">Ver no GitHub →</a></div>
-    </article>
-    <article class="proj code reveal" data-tipo="estudo" style="--d:80ms">
-      <div class="proj-img code-art"><pre><span class="c">// Beecrowd 1001–1005</span>
-<span class="k">let</span> a = <span class="n">10</span>, b = <span class="n">9</span>;
-console.<span class="f">log</span>(<span class="s">`X = ${a + b}`</span>);</pre></div>
-      <div class="proj-body"><h3>Desafios de lógica · Beecrowd</h3><p>Exercícios de programação da semana 01 (problemas 1001 a 1005).</p><a class="link" href="https://github.com/informaticaseed/desafios-semana-01-beecrowd-1001-1005-israelcabral3312008" target="_blank" rel="noopener">Ver no GitHub →</a></div>
-    </article>
   </div>
 </section>
 
-<!-- ===== Processo ===== -->
-<section id="processo" class="wrap secao">
-  <div class="sec-head reveal"><span class="kicker">Processo</span><h2>Do primeiro “oi” ao site no ar</h2></div>
-  <ol class="steps">
-    <li class="reveal"><b>01</b><h3>Conversa</h3><p>Entendo seu negócio, seus clientes e o que o site precisa resolver.</p></li>
-    <li class="reveal" style="--d:80ms"><b>02</b><h3>Proposta visual</h3><p>Mostro um modelo com as suas cores, fotos e informações.</p></li>
-    <li class="reveal" style="--d:160ms"><b>03</b><h3>Ajustes</h3><p>Ajustamos juntos até ficar do jeito que você quer.</p></li>
-    <li class="reveal" style="--d:240ms"><b>04</b><h3>No ar</h3><p>Publico o site e te entrego o link pronto para divulgar.</p></li>
+<!-- ===== MODELOS ===== -->
+<section class="sec wrap">
+  <span class="kicker center reveal">Veja na prática</span>
+  <h2 class="center reveal">Modelos que já preparamos para comércios da região</h2>
+  <p class="lead center reveal">Toque e veja como o site do seu comércio pode ficar. São modelos demonstrativos, e o seu fica com a sua cara.</p>
+  <div class="cases">
+    <a class="case reveal" href="landing-pages/bonnapan/index.html"><img src="img/proj-bonnapan.jpg" alt="Modelo de site para padaria" loading="lazy"><span><b>Padaria</b>Pedido com quantidade direto no WhatsApp</span></a>
+    <a class="case reveal" href="landing-pages/omega-pneus/index.html" style="--d:80ms"><img src="img/proj-omega.jpg" alt="Modelo de site para oficina" loading="lazy"><span><b>Oficina</b>Agendamento com data e modelo do carro</span></a>
+    <a class="case reveal" href="landing-pages/pet-happy/index.html" style="--d:160ms"><img src="img/proj-pet.jpg" alt="Modelo de site para pet shop" loading="lazy"><span><b>Pet shop</b>Banho e tosa agendados em segundos</span></a>
+  </div>
+  <p class="center reveal"><a class="link" href="landing-pages/index.html">Ver os 10 modelos →</a></p>
+</section>
+
+<!-- ===== COMO FUNCIONA ===== -->
+<section class="sec wrap">
+  <span class="kicker center reveal">Simples assim</span>
+  <h2 class="center reveal">Você não faz nada técnico. Eu cuido de tudo.</h2>
+  <ol class="how">
+    <li class="reveal"><b>1</b><h3>Você me chama no WhatsApp</h3><p>Me conta sobre o seu negócio em 5 minutos.</p></li>
+    <li class="reveal" style="--d:80ms"><b>2</b><h3>Eu monto o seu modelo</h3><p>Com as suas fotos, serviços e informações.</p></li>
+    <li class="reveal" style="--d:160ms"><b>3</b><h3>Você aprova e paga</h3><p>Só paga depois de ver e gostar.</p></li>
+    <li class="reveal" style="--d:240ms"><b>4</b><h3>Seu site no ar</h3><p>Em até <span data-cfg="diasEntrega">7</span> dias, com link pronto para divulgar.</p></li>
   </ol>
 </section>
 
-<!-- ===== Instagram ===== -->
-<section id="instagram" class="wrap secao" data-needs="instagram">
-  <div class="insta reveal">
-    <div>
-      <span class="kicker">Instagram</span>
-      <h2>Acompanhe os bastidores</h2>
-      <p class="muted">Projetos novos, antes e depois e dicas para o seu negócio aparecer na internet.</p>
-      <a class="btn btn-insta" data-link="instagram" target="_blank" rel="noopener">
-        <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg>
-        Seguir <span data-cfg="arroba">@</span></a>
-    </div>
-    <div class="insta-grid" aria-hidden="true">
-      <img src="img/proj-catalogo.jpg" alt="" loading="lazy"><img src="img/proj-bonnapan.jpg" alt="" loading="lazy"><img src="img/proj-omega.jpg" alt="" loading="lazy"><img src="img/proj-pet.jpg" alt="" loading="lazy">
+<!-- ===== OFERTA ===== -->
+<section class="sec offer-wrap" id="oferta">
+  <div class="wrap">
+    <div class="offer reveal">
+      <span class="ribbon">BLACK NOVEMBER</span>
+      <h2>Tudo o que você recebe</h2>
+      <ul class="stack">
+        <li>✅ Site profissional completo, com a cara do seu negócio</li>
+        <li>✅ Botão e pedido direto no WhatsApp</li>
+        <li>✅ Mapa, rota, horário e telefone a um toque</li>
+        <li>✅ Funciona perfeito no celular e no computador</li>
+        <li>✅ Pronto em até <span data-cfg="diasEntrega">7</span> dias</li>
+      </ul>
+      <div class="bonus" data-needs="bonus">
+        <p class="bonus-t">🎁 BÔNUS DESTA OFERTA</p>
+        <ul id="bonus-list"></ul>
+      </div>
+
+      <div class="price">
+        <p class="de" data-needs="precoDe">De <s>R$ <span data-cfg="precoDe">997</span></s> por apenas</p>
+        <p class="por" data-needs="parcelas"><small><span data-cfg="parcelas">12</span>x de</small> R$ <span data-cfg="valorParcela">49,70</span></p>
+        <p class="avista">ou R$ <span data-cfg="precoPor">497</span> à vista</p>
+      </div>
+
+      <div class="countdown" data-needs="fimDaOferta" aria-live="off">
+        <p>Esta condição termina em:</p>
+        <div class="cd"><div><b data-cd="d">00</b><small>dias</small></div><div><b data-cd="h">00</b><small>horas</small></div><div><b data-cd="m">00</b><small>min</small></div><div><b data-cd="s">00</b><small>seg</small></div></div>
+      </div>
+      <div class="ended" hidden>
+        <p><b>Esta oferta já terminou.</b> Me chame no WhatsApp para saber a condição atual.</p>
+      </div>
+
+      <a class="btn btn-y btn-xl block" data-cta href="#quero">GARANTIR MINHA VAGA AGORA</a>
+      <p class="vagas" data-needs="vagas">⚠️ Atendo só <b data-cfg="vagas">10</b> comércios por mês para entregar no prazo.</p>
     </div>
   </div>
 </section>
 
-<!-- ===== Contato ===== -->
-<section id="contato" class="wrap secao">
-  <div class="contact reveal">
-    <div class="contact-text">
-      <span class="kicker">Contato</span>
-      <h2>Vamos colocar o seu negócio na internet?</h2>
-      <p class="muted">Conte um pouco sobre o que você precisa. A mensagem fica pronta para enviar.</p>
-      <div class="socials big">
-        <a data-link="whatsapp" data-needs="whatsapp" target="_blank" rel="noopener">WhatsApp</a>
-        <a data-link="instagram" data-needs="instagram" target="_blank" rel="noopener">Instagram</a>
-        <a data-link="email" data-needs="email">E-mail</a>
-        <a data-link="github" data-needs="github" target="_blank" rel="noopener">GitHub</a>
-      </div>
+<!-- ===== GARANTIA ===== -->
+<section class="sec wrap">
+  <div class="guarantee reveal">
+    <div class="seal"><b>RISCO</b><span>ZERO</span></div>
+    <div>
+      <h2>Você só paga depois de aprovar.</h2>
+      <p>Eu monto o modelo do seu site primeiro. Se você não gostar, não paga nada e não me deve nada. Simples assim.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FORMULÁRIO ===== -->
+<section class="sec wrap" id="quero">
+  <div class="lead-box reveal">
+    <div>
+      <span class="kicker">Último passo</span>
+      <h2>Quero o site do meu comércio</h2>
+      <p class="lead">Preencha em 20 segundos. Eu te respondo no WhatsApp com o próximo passo.</p>
     </div>
     <form class="form" id="form" novalidate>
-      <label class="field"><span>Seu nome</span><input name="nome" required autocomplete="name" placeholder="Como posso te chamar?"></label>
-      <label class="field"><span>Nome do negócio</span><input name="negocio" placeholder="Ex.: Padaria do Bairro"></label>
-      <fieldset class="field"><legend>O que você precisa?</legend>
+      <label class="field"><span>Seu nome</span><input name="nome" autocomplete="name" placeholder="Como posso te chamar?" required></label>
+      <label class="field"><span>Nome do comércio</span><input name="negocio" placeholder="Ex.: Padaria do Bairro" required></label>
+      <fieldset class="field"><legend>Qual é o seu ramo?</legend>
         <div class="chips">
-          <label><input type="radio" name="tipo" value="Landing page" checked><span>Landing page</span></label>
-          <label><input type="radio" name="tipo" value="Site institucional"><span>Site institucional</span></label>
-          <label><input type="radio" name="tipo" value="Pedido pelo WhatsApp"><span>Pedido pelo WhatsApp</span></label>
-          <label><input type="radio" name="tipo" value="Ajustes em site"><span>Ajustes</span></label>
+          <label><input type="radio" name="ramo" value="Alimentação" checked><span>🍞 Alimentação</span></label>
+          <label><input type="radio" name="ramo" value="Beleza e estética"><span>💅 Beleza</span></label>
+          <label><input type="radio" name="ramo" value="Pet"><span>🐶 Pet</span></label>
+          <label><input type="radio" name="ramo" value="Automotivo"><span>🔧 Automotivo</span></label>
+          <label><input type="radio" name="ramo" value="Saúde e academia"><span>💪 Saúde</span></label>
+          <label><input type="radio" name="ramo" value="Outro"><span>✨ Outro</span></label>
         </div>
       </fieldset>
-      <label class="field"><span>Mensagem</span><textarea name="msg" rows="3" placeholder="Conte um pouco sobre o projeto"></textarea></label>
-      <p class="err" hidden>Preencha o seu nome para continuar.</p>
-      <div class="form-acts">
-        <button class="btn btn-a" type="submit" data-via="whatsapp" data-needs="whatsapp">Enviar pelo WhatsApp</button>
-        <button class="btn btn-a" type="submit" data-via="email" data-needs="email" data-only-if-no="whatsapp">Enviar por e-mail</button>
-        <button class="btn btn-light" type="submit" data-via="copy">Copiar mensagem</button>
-      </div>
+      <p class="err" hidden>Preencha o seu nome e o nome do comércio.</p>
+      <button class="btn btn-y btn-xl block" type="submit">QUERO MEU SITE PELO WHATSAPP</button>
+      <p class="safe">🔒 Seus dados vão direto para a conversa no WhatsApp. Nada fica salvo aqui.</p>
     </form>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="sec wrap narrow">
+  <h2 class="center reveal">Perguntas frequentes</h2>
+  <div class="faqs">
+    <details class="faq reveal" open><summary>Preciso entender de internet?</summary><p>Não. Você me passa as informações do seu negócio pelo WhatsApp e eu cuido de todo o resto.</p></details>
+    <details class="faq reveal"><summary>Em quanto tempo fica pronto?</summary><p>Em até <span data-cfg="diasEntrega">7</span> dias depois que você me envia as fotos e as informações.</p></details>
+    <details class="faq reveal"><summary>E se eu não gostar?</summary><p>Você só paga depois de aprovar o modelo. Se não gostar, não paga nada.</p></details>
+    <details class="faq reveal"><summary>Tem mensalidade?</summary><p>O valor desta oferta é pelo site pronto. Se o seu site precisar de domínio próprio (seunegocio.com.br) ou hospedagem paga, eu te explico os custos antes, sem surpresa.</p></details>
+    <details class="faq reveal"><summary>Posso parcelar?</summary><p data-needs="parcelas">Sim, em até <span data-cfg="parcelas">12</span>x no cartão, ou à vista com o melhor preço.</p></details>
+    <details class="faq reveal"><summary>Funciona para o meu tipo de negócio?</summary><p>Se o seu cliente te procura pelo celular, funciona: padaria, salão, pet shop, oficina, restaurante, academia, clínica e muito mais.</p></details>
+  </div>
+</section>
+
+<!-- ===== CTA FINAL ===== -->
+<section class="sec final">
+  <div class="wrap center">
+    <h2 class="reveal">Enquanto você pensa, <span class="hl">o seu concorrente</span> está aparecendo no Google.</h2>
+    <p class="lead reveal">Garanta a sua vaga na condição Black November.</p>
+    <a class="btn btn-y btn-xl reveal" data-cta href="#quero">QUERO MEU SITE AGORA</a>
   </div>
 </section>
 </main>
 
-<footer class="footer wrap">
-  <span>© <span id="ano">2026</span> <span data-cfg="nome">Israel Cabral</span> · Feito com HTML, CSS e JavaScript</span>
-  <a href="#inicio">Voltar ao topo ↑</a>
+<footer class="footer">
+  <div class="wrap footer-in">
+    <span><b data-cfg="marca">Site Que Vende</b> · <span data-cfg="nome">Israel Cabral</span> · <span data-cfg="regiao">Águas Claras e região</span></span>
+    <span class="f-links"><a data-link="instagram" data-needs="instagram" target="_blank" rel="noopener">Instagram</a><a data-link="whatsapp" data-needs="whatsapp" target="_blank" rel="noopener">WhatsApp</a></span>
+  </div>
 </footer>
 
-<dialog class="modal" id="m-aguas">
-  <button class="icon-btn m-close" type="button" aria-label="Fechar"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-  <img src="img/proj-bonnapan.jpg" alt="Página da Bonnapan com o montador de pedido">
-  <div class="m-body">
-    <h3>Top 10 comércios de Águas Claras</h3>
-    <p>Pesquisei comércios reais do bairro em guias públicos e criei uma página-modelo para cada um, em três versões de design até chegar na atual.</p>
-    <ul class="checks">
-      <li>Catálogo com busca sem acento, filtros por categoria e ordenação por nota</li>
-      <li>Montador de pedido e de agendamento com prévia da mensagem do WhatsApp</li>
-      <li>Galeria em tela cheia com teclado e arrastar no celular</li>
-      <li>Tema claro e escuro, menu mobile e barra de ações fixa</li>
-      <li>Acessível: foco visível, rótulos e respeito a “reduzir movimento”</li>
-    </ul>
-    <div class="ctas"><a class="btn btn-a" href="landing-pages/index.html">Ver ao vivo</a><a class="btn btn-light" data-link="repo" target="_blank" rel="noopener">Código no GitHub</a></div>
-  </div>
-</dialog>
+<!-- Barra fixa no celular -->
+<a class="mcta" data-cta href="#quero"><span>🔥 <b>Black November</b> · vagas limitadas</span><b>QUERO</b></a>
 <div class="toast" role="status" aria-live="polite"></div>
 
 <script src="js/config.js"></script>
-<script src="js/portfolio.js"></script>
+<script src="js/vendas.js"></script>
 </body>
 </html>
