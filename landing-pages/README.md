@@ -1,6 +1,6 @@
 # Top 10 comércios de Águas Claras (Brasília - DF)
 
-Landing pages-modelo feitas para a disciplina de **Desenho Técnico para Web**.
+Modelos demonstrativos de sites para comércios locais.
 Abra o [`index.html`](index.html) no navegador para ver o catálogo com as 10 páginas.
 
 | # | Comércio | Segmento | Endereço | Telefone | Nota Google (avaliações) |
