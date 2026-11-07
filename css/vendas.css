@@ -206,3 +206,18 @@ h2.center{margin-bottom:8px}
   .vsl-play svg{width:32px;height:32px}
   .header .btn-sm{padding:9px 12px;font-size:.78rem}
 }
+
+/* Case em destaque: sistema com IA */
+.xcase{display:grid;grid-template-columns:1.15fr 1fr;gap:32px;align-items:center;margin-top:36px;padding:22px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(160deg,#1a1a1a,var(--bg2))}
+.xcase-img{display:block;border-radius:14px;overflow:hidden;border:1px solid var(--line);aspect-ratio:4/3}
+.xcase-img img{width:100%;height:100%;object-fit:cover;object-position:top left;transition:transform .7s var(--ease)}
+.xcase-img:hover img{transform:scale(1.04)}
+.xtag{display:inline-block;padding:4px 10px;border-radius:999px;background:rgba(255,214,10,.12);color:var(--y);font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.xcase-txt h3{font-family:var(--display);font-size:clamp(1.3rem,2.6vw,1.7rem);line-height:1.2;margin:12px 0 10px}
+.xcase-txt p{color:var(--muted)}
+.xlist{list-style:none;display:grid;gap:8px;margin:18px 0 22px}
+.xlist li{position:relative;padding-left:26px;color:#d4d4d4;font-size:.95rem}
+.xlist li::before{content:"✓";position:absolute;left:0;top:0;color:var(--y);font-weight:900}
+.xlist b{color:var(--fg)}
+.xnote{display:block;margin-top:10px;color:var(--muted);font-size:.8rem}
+@media (max-width:860px){.xcase{grid-template-columns:1fr;gap:20px;padding:16px}}

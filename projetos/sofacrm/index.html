@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SofáCRM — Demonstração</title>
+<meta name="description" content="Demonstração do SofáCRM: CRM com assistente inteligente para loja de sofás. Dados fictícios.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F4F1;--card:#FFFFFF;--ink:#1E1B18;--muted:#7A726A;--line:#ECE7E1;--soft:#F3EEE9;
+  --brand:#B8643A;--brand-d:#9A512C;--brand-l:#F4E4D8;
+  --side:#1B1917;--side-ink:#CFC8C0;
+  --green:#2E9E6A;--amber:#D99A2B;--red:#D2543F;--blue:#3C6FD1;--violet:#7B61D1;
+  --shadow:0 1px 2px rgba(30,27,24,.04),0 4px 16px rgba(30,27,24,.06);
+  --r:14px;
+}
+[data-theme="dark"]{
+  --bg:#141210;--card:#1E1B19;--ink:#F2EEEA;--muted:#A39A91;--line:#2E2A26;--soft:#26221F;
+  --brand-l:#3A271C;--side:#0E0D0C;--shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+.app{display:flex;min-height:100vh}
+
+/* Sidebar */
+.side{width:240px;background:var(--side);color:var(--side-ink);padding:22px 14px;position:fixed;inset:0 auto 0 0;display:flex;flex-direction:column;gap:4px;z-index:20}
+.logo{display:flex;align-items:center;gap:10px;padding:4px 10px 22px;color:#fff;font-weight:800;font-size:18px;letter-spacing:-.3px}
+.logo .mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#D98A5B,var(--brand-d));display:grid;place-items:center}
+.logo small{display:block;font-weight:500;font-size:11px;color:#8E857C;letter-spacing:0}
+.nav{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;cursor:pointer;border:0;background:none;width:100%;text-align:left;color:var(--side-ink);font-weight:500;transition:.15s}
+.nav:hover{background:#2A2724;color:#fff}
+.nav.active{background:var(--brand);color:#fff}
+.nav svg{width:18px;height:18px;flex:none}
+.nav .count{margin-left:auto;background:#ffffff22;font-size:11px;padding:1px 7px;border-radius:20px}
+.side .spacer{flex:1}
+.side .store{font-size:12px;padding:12px;border-radius:10px;background:#24211F;color:#9C948B}
+.side .store b{color:#fff;display:block;font-size:13px}
+
+/* Main */
+.main{margin-left:240px;flex:1;min-width:0}
+.top{display:flex;align-items:center;gap:12px;padding:18px 28px;position:sticky;top:0;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);z-index:10;border-bottom:1px solid var(--line)}
+.top h1{font-size:20px;font-weight:700;letter-spacing:-.4px}
+.top .sub{color:var(--muted);font-size:12.5px}
+.top .grow{flex:1}
+.search{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px;width:280px}
+.search input{border:0;outline:0;background:none;width:100%}
+.content{padding:24px 28px 60px}
+
+.btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--card);padding:8px 14px;border-radius:10px;cursor:pointer;font-weight:600;font-size:13px;transition:.15s;white-space:nowrap}
+.btn:hover{border-color:var(--brand);color:var(--brand)}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+.btn.primary:hover{background:var(--brand-d);color:#fff}
+.btn.ghost{border-color:transparent;background:transparent}
+.btn.sm{padding:5px 10px;font-size:12px;border-radius:8px}
+.btn.wa{background:#25D366;border-color:#25D366;color:#fff}
+.btn.wa:hover{background:#1EBE5A;color:#fff}
+.btn.danger:hover{border-color:var(--red);color:var(--red)}
+.icon-btn{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;border:1px solid var(--line);background:var(--card);cursor:pointer}
+.icon-btn:hover{border-color:var(--brand);color:var(--brand)}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+.card-h{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 0;gap:10px}
+.card-h h3{font-size:14.5px;font-weight:700}
+.card-b{padding:16px 18px}
+.grid{display:grid;gap:16px}
+.kpis{grid-template-columns:repeat(5,1fr)}
+.g2{grid-template-columns:1.6fr 1fr}
+.g3{grid-template-columns:repeat(3,1fr)}
+
+.kpi{padding:16px 18px}
+.kpi .lbl{color:var(--muted);font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px}
+.kpi .val{font-size:24px;font-weight:800;letter-spacing:-.6px;margin:6px 0 4px}
+.kpi .delta{font-size:12px;font-weight:600}
+.up{color:var(--green)}.down{color:var(--red)}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:20px;background:var(--soft);color:var(--muted);white-space:nowrap}
+.muted{color:var(--muted)}
+.small{font-size:12px}
+.row{display:flex;align-items:center;gap:10px}
+.between{justify-content:space-between}
+.wrap{flex-wrap:wrap}
+.toolbar{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--card);padding:6px 12px;border-radius:20px;cursor:pointer;font-size:12.5px;font-weight:600;color:var(--muted)}
+.chip.on{background:var(--ink);color:var(--card);border-color:var(--ink)}
+
+/* Table */
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:600;padding:12px 16px;border-bottom:1px solid var(--line)}
+td{padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:middle}
+tbody tr{cursor:pointer;transition:.1s}
+tbody tr:hover{background:var(--soft)}
+tbody tr:last-child td{border-bottom:0}
+.avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:12.5px;color:#fff;flex:none}
+.table-wrap{overflow-x:auto}
+
+/* Kanban */
+.board{display:grid;grid-template-columns:repeat(6,minmax(235px,1fr));gap:14px;overflow-x:auto;padding-bottom:10px}
+.col{background:var(--soft);border-radius:var(--r);padding:12px;min-height:420px;display:flex;flex-direction:column;gap:10px;border:2px dashed transparent;transition:.15s}
+.col.over{border-color:var(--brand);background:var(--brand-l)}
+.col-h{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13px;padding:2px 4px;white-space:nowrap}
+.col-h .sum{margin-left:auto;font-weight:600;font-size:11.5px;color:var(--muted)}
+.deal{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;cursor:grab;box-shadow:var(--shadow);transition:.15s}
+.deal:hover{transform:translateY(-2px);border-color:var(--brand)}
+.deal.dragging{opacity:.45}
+.deal h4{font-size:13.5px;font-weight:700;margin-bottom:3px}
+.deal .val{font-weight:800;font-size:15px;margin:8px 0 6px}
+.deal .foot{display:flex;align-items:center;gap:6px;justify-content:space-between}
+.mv{border:0;background:var(--soft);width:24px;height:24px;border-radius:6px;cursor:pointer;color:var(--muted)}
+.mv:hover{background:var(--brand);color:#fff}
+
+/* Products */
+.prods{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.prod .img{height:150px;border-radius:12px 12px 0 0;display:grid;place-items:center;position:relative}
+.prod .img .st{position:absolute;top:10px;right:10px}
+.prod .card-b h4{font-size:14.5px;font-weight:700}
+.price{font-size:19px;font-weight:800;letter-spacing:-.4px}
+
+/* Lists */
+.list-item{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+.list-item:last-child{border-bottom:0}
+.check{width:20px;height:20px;border-radius:6px;border:2px solid var(--line);display:grid;place-items:center;cursor:pointer;flex:none;background:var(--card)}
+.check.on{background:var(--green);border-color:var(--green);color:#fff}
+.done{text-decoration:line-through;color:var(--muted)}
+
+/* AI */
+.ai-hero{background:linear-gradient(135deg,#2A1D15,#5B3320 55%,#B8643A);color:#fff;border-radius:var(--r);padding:24px;position:relative;overflow:hidden}
+.ai-hero:after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(#ffffff30,transparent 70%)}
+.ai-hero h2{font-size:22px;letter-spacing:-.5px;margin-bottom:6px}
+.insight{display:flex;gap:12px;padding:14px;border-radius:12px;background:var(--soft);margin-bottom:10px;align-items:flex-start}
+.insight .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:none;font-size:16px}
+.insight b{display:block;font-size:13.5px;margin-bottom:2px}
+textarea.msg{width:100%;min-height:150px;border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--soft);resize:vertical;outline:0;line-height:1.55}
+textarea.msg:focus{border-color:var(--brand)}
+
+/* Chart */
+.bars{display:flex;align-items:flex-end;gap:14px;height:210px;padding-top:24px}
+.bar{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end}
+.bar .b{width:100%;max-width:54px;border-radius:9px 9px 4px 4px;background:linear-gradient(180deg,#D98A5B,var(--brand));position:relative;transition:height .6s cubic-bezier(.2,.8,.2,1);min-height:4px}
+.bar.cur .b{background:linear-gradient(180deg,#3B342E,#1E1B18)}
+[data-theme="dark"] .bar.cur .b{background:linear-gradient(180deg,#F2EEEA,#BDB4AB)}
+.bar .b span{position:absolute;top:-21px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:700;white-space:nowrap}
+.bar small{color:var(--muted);font-size:11.5px;font-weight:600;text-transform:capitalize}
+.funnel-row{margin-bottom:12px}
+.funnel-row .track{height:10px;border-radius:6px;background:var(--soft);overflow:hidden;margin-top:6px}
+.funnel-row .fill{height:100%;border-radius:6px}
+
+/* Modal */
+.overlay{position:fixed;inset:0;background:rgba(20,17,15,.45);backdrop-filter:blur(3px);display:grid;place-items:center;z-index:100;padding:20px;animation:fade .15s}
+.modal{background:var(--card);border-radius:18px;width:min(620px,100%);max-height:90vh;overflow:auto;box-shadow:0 30px 80px rgba(0,0,0,.3);animation:pop .2s cubic-bezier(.2,.8,.2,1)}
+.modal.wide{width:min(820px,100%)}
+.modal-h{display:flex;align-items:center;justify-content:space-between;padding:20px 22px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--card);z-index:1}
+.modal-h h2{font-size:17px}
+.modal-b{padding:20px 22px}
+.modal-f{display:flex;gap:10px;justify-content:flex-end;padding:16px 22px;border-top:1px solid var(--line);position:sticky;bottom:0;background:var(--card)}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field.full{grid-column:1/-1}
+.field label{font-size:12px;font-weight:600;color:var(--muted)}
+.field input,.field select,.field textarea{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--card);outline:0;transition:.15s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-l)}
+.field textarea{min-height:80px;resize:vertical}
+@keyframes fade{from{opacity:0}}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.98)}}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--card);padding:12px 18px;border-radius:12px;font-weight:600;z-index:200;box-shadow:0 10px 30px rgba(0,0,0,.25);animation:pop .2s}
+.menu{position:absolute;right:0;top:44px;background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 40px rgba(0,0,0,.15);padding:6px;min-width:190px;z-index:30}
+.menu button{display:flex;gap:10px;align-items:center;width:100%;padding:9px 12px;border:0;background:none;border-radius:8px;cursor:pointer;text-align:left;font-weight:500}
+.menu button:hover{background:var(--soft)}
+.empty{text-align:center;padding:40px;color:var(--muted)}
+.stat-mini{background:var(--soft);border-radius:12px;padding:12px 14px}
+.stat-mini b{display:block;font-size:17px}
+.timeline{border-left:2px solid var(--line);margin-left:6px;padding-left:16px}
+.timeline .t{position:relative;padding-bottom:12px}
+.timeline .t:before{content:"";position:absolute;left:-22px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--brand)}
+.mobile-nav{display:none}
+.login{position:fixed;inset:0;z-index:500;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at 20% 10%,#5B3320,#1B1917 60%)}
+.login .box{background:var(--card);width:min(400px,100%);border-radius:20px;padding:32px 28px;box-shadow:0 30px 80px rgba(0,0,0,.4)}
+.login .mark{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,#D98A5B,var(--brand-d));display:grid;place-items:center;margin-bottom:16px}
+.login h2{font-size:21px;letter-spacing:-.4px}
+.login .field{margin-top:14px}
+.login .err{color:var(--red);font-size:12.5px;margin-top:12px;min-height:16px}
+.sync{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;margin-top:4px}
+.sync .dot{width:7px;height:7px}
+
+@media (max-width:1200px){.kpis{grid-template-columns:repeat(3,1fr)}.g2,.g3{grid-template-columns:1fr}}
+@media (max-width:820px){
+  #demoTag{bottom:auto;top:10px;right:auto;left:50%;transform:translateX(-50%)}
+  .side{display:none}.main{margin-left:0}
+  .top{padding:14px 16px}.content{padding:16px 16px 100px}
+  .search{display:none}.kpis{grid-template-columns:1fr 1fr}
+  .form{grid-template-columns:1fr}
+  .board{grid-template-columns:repeat(6,82vw);scroll-snap-type:x mandatory}.col{scroll-snap-align:start}
+  .mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--side);padding:8px 6px calc(8px + env(safe-area-inset-bottom));z-index:50;justify-content:space-around}
+  .mobile-nav button{background:none;border:0;color:var(--side-ink);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10.5px;padding:4px 6px;border-radius:8px}
+  .mobile-nav button.active{color:#fff;background:var(--brand)}
+  .mobile-nav svg{width:20px;height:20px}
+  .hide-m{display:none}
+}
+</style>
+</head>
+<body>
+<div style="position:fixed;bottom:14px;right:14px;z-index:60;background:#1B1917;color:#fff;font-size:12px;padding:8px 12px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.25)" id="demoTag">👀 Demonstração · dados fictícios</div>
+<div class="app">
+  <aside class="side">
+    <div class="logo"><div class="mark">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M4 11V8a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v3"/><path d="M2 13a2 2 0 0 1 4 0v2h12v-2a2 2 0 0 1 4 0v4a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/><path d="M5 18v2M19 18v2"/></svg>
+    </div><div>SofáCRM<small>Gestão inteligente</small></div></div>
+    <div id="navList"></div>
+    <div class="spacer"></div>
+    <div class="store"><b id="storeName">Minha Loja</b><span id="storeInfo">Dados salvos neste navegador</span></div>
+  </aside>
+
+  <main class="main">
+    <header class="top">
+      <div><h1 id="pageTitle">Painel</h1><div class="sub" id="pageSub"></div></div>
+      <div class="grow"></div>
+      <div class="search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="globalSearch" placeholder="Buscar cliente, pedido..." autocomplete="off"></div>
+      <button class="icon-btn" title="Tema claro/escuro" onclick="toggleTheme()"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <div style="position:relative">
+        <button class="btn primary" onclick="toggleQuick(event)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg><span class="hide-m">Novo</span></button>
+        <div id="quickMenu" class="menu" style="display:none">
+          <button onclick="formClient()">👤 Cliente</button>
+          <button onclick="formDeal()">🎯 Oportunidade</button>
+          <button onclick="formOrder()">🧾 Pedido</button>
+          <button onclick="formTask()">✅ Tarefa</button>
+          <button onclick="formProduct()">🛋️ Produto</button>
+        </div>
+      </div>
+    </header>
+    <section class="content" id="view"></section>
+  </main>
+</div>
+<nav class="mobile-nav" id="mobileNav"></nav>
+<div id="modalRoot"></div>
+
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* ============ ÍCONES ============ */
+const I = {
+  painel:'<path d="M3 13h8V3H3zM13 21h8V11h-8zM3 21h8v-6H3zM13 3v6h8V3z"/>',
+  funil:'<path d="M3 4h18l-7 8v6l-4 2v-8z"/>',
+  clientes:'<circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M16 3.5a4 4 0 0 1 0 9M22 21a7 7 0 0 0-4-6.3"/>',
+  pedidos:'<path d="M6 2h12v20l-3-2-3 2-3-2-3 2zM9 7h6M9 11h6M9 15h4"/>',
+  produtos:'<path d="M4 11V8a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v3"/><path d="M2 13a2 2 0 0 1 4 0v2h12v-2a2 2 0 0 1 4 0v4a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>',
+  tarefas:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4"/>',
+  ia:'<path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9zM19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9z"/>',
+  config:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.8 1.2V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-2.8-1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.7 1.7 0 0 0 3.2 14H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.2-2.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.7 1.7 0 0 0 10 3.2V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 2.8 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0 1.2 2.8H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1.1z"/>'
+};
+const svg = (k,s=18) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${I[k]}</svg>`;
+
+/* ============ CONSTANTES ============ */
+const STAGES = [
+  {id:'novo',nome:'Novo lead',prob:.1,cor:'#3C6FD1'},
+  {id:'contato',nome:'Em contato',prob:.25,cor:'#7B61D1'},
+  {id:'orcamento',nome:'Orçamento enviado',prob:.5,cor:'#D99A2B'},
+  {id:'negociacao',nome:'Negociação',prob:.75,cor:'#B8643A'},
+  {id:'ganho',nome:'Fechado ✓',prob:1,cor:'#2E9E6A'},
+  {id:'perdido',nome:'Perdido',prob:0,cor:'#9A928A'}
+];
+const ORDER_ST = [
+  {id:'pagamento',nome:'Aguardando pagamento',cor:'#D99A2B'},
+  {id:'producao',nome:'Em produção',cor:'#7B61D1'},
+  {id:'pronto',nome:'Pronto p/ entrega',cor:'#3C6FD1'},
+  {id:'rota',nome:'Em rota',cor:'#B8643A'},
+  {id:'entregue',nome:'Entregue',cor:'#2E9E6A'},
+  {id:'cancelado',nome:'Cancelado',cor:'#9A928A'}
+];
+const ORIGENS = ['Instagram','WhatsApp','Loja física','Indicação','Facebook','Google','Site'];
+const PAGTOS = ['Pix','Cartão de crédito','Cartão de débito','Boleto','Dinheiro','Crediário'];
+const TIPOS_TAREFA = ['Ligar','WhatsApp','Visita','Enviar orçamento','Entrega','Pós-venda','Outro'];
+const AV_COLORS = ['#B8643A','#3C6FD1','#2E9E6A','#7B61D1','#D99A2B','#C2477A','#2A8C9A','#5B6472'];
+
+/* ============ UTIL ============ */
+const $ = s => document.querySelector(s);
+const uid = () => Math.random().toString(36).slice(2,10);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const brl = v => (Number(v)||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const brlK = v => v >= 1000 ? 'R$ ' + (v/1000).toLocaleString('pt-BR',{maximumFractionDigits:1}) + 'k' : brl(v);
+const iso = d => { const x = new Date(d); x.setMinutes(x.getMinutes()-x.getTimezoneOffset()); return x.toISOString().slice(0,10); };
+const addDays = (n, base=new Date()) => { const d = new Date(base); d.setDate(d.getDate()+n); return iso(d); };
+const TODAY = () => iso(new Date());
+const parseD = s => new Date(s + 'T12:00:00');
+const daysFrom = s => Math.round((parseD(TODAY()) - parseD(s)) / 864e5);
+const fmtD = s => s ? parseD(s).toLocaleDateString('pt-BR',{day:'2-digit',month:'short'}).replace('.','') : '—';
+const fmtDL = s => s ? parseD(s).toLocaleDateString('pt-BR') : '—';
+const initials = n => (n||'?').split(' ').filter(Boolean).slice(0,2).map(p=>p[0]).join('').toUpperCase();
+const avColor = id => AV_COLORS[[...String(id)].reduce((a,c)=>a+c.charCodeAt(0),0) % AV_COLORS.length];
+const avatar = c => `<div class="avatar" style="background:${avColor(c?.id)}">${initials(c?.nome)}</div>`;
+const firstName = n => (n||'').split(' ')[0];
+const stage = id => STAGES.find(s=>s.id===id) || STAGES[0];
+const ost = id => ORDER_ST.find(s=>s.id===id) || ORDER_ST[0];
+const pill = (txt,cor) => `<span class="badge" style="background:${cor}1f;color:${cor}"><span class="dot" style="background:${cor}"></span>${esc(txt)}</span>`;
+const relDay = s => { const d = -daysFrom(s); return d===0?'Hoje':d===1?'Amanhã':d===-1?'Ontem':d<0?`${-d} dias atrás`:`em ${d} dias`; };
+
+function sofaSVG(color='#B8643A', w=150){
+  return `<svg width="${w}" viewBox="0 0 160 90"><ellipse cx="80" cy="84" rx="68" ry="5" fill="#00000018"/>
+  <rect x="22" y="14" width="116" height="40" rx="12" fill="${color}"/>
+  <rect x="22" y="14" width="116" height="40" rx="12" fill="#fff" opacity=".12"/>
+  <rect x="6" y="34" width="28" height="40" rx="10" fill="${color}"/><rect x="126" y="34" width="28" height="40" rx="10" fill="${color}"/>
+  <rect x="28" y="46" width="104" height="24" rx="8" fill="${color}"/><rect x="28" y="46" width="104" height="10" rx="6" fill="#fff" opacity=".18"/>
+  <line x1="80" y1="48" x2="80" y2="68" stroke="#000" opacity=".12" stroke-width="2"/>
+  <rect x="16" y="74" width="6" height="9" rx="2" fill="#3a2a20"/><rect x="138" y="74" width="6" height="9" rx="2" fill="#3a2a20"/></svg>`;
+}
+
+/* ============ DADOS ============ */
+const DB_KEY = 'sofacrm_v1';
+let db = null;
+function load(){ try{ return JSON.parse(localStorage.getItem(DB_KEY)); }catch(e){ return null; } }
+function save(){ if(!CLOUD){ try{ localStorage.setItem(DB_KEY, JSON.stringify(db)); }catch(e){} } else if(session) queueSync(); }
+
+/* ============ NUVEM (Supabase) ============ */
+const CFG = window.CRM_CONFIG || {};
+const CLOUD = !!(CFG.supabaseUrl && CFG.supabaseKey && window.supabase);
+const COLS = ['clients','products','orders','deals','tasks'];
+let sb = null, session = null, synced = {}, syncTimer = null, syncState = 'ok', pendingRender = false;
+function emptyDB(){ return {config:{loja:CFG.nomeLoja||'Minha Loja',meta:30000},products:[],clients:[],orders:[],deals:[],tasks:[]}; }
+function recordsOf(d){
+  const out = {};
+  COLS.forEach(t => (d[t]||[]).forEach(r => out[t+':'+r.id] = {tipo:t, dados:r}));
+  out['config:main'] = {tipo:'config', dados:{loja:d.config.loja, meta:d.config.meta}};
+  return out;
+}
+function queueSync(){ clearTimeout(syncTimer); setSync('saving'); syncTimer = setTimeout(pushChanges, 350); }
+async function pushChanges(){
+  const cur = recordsOf(db), up = [], del = [];
+  for(const [k,v] of Object.entries(cur)){ if(synced[k] !== JSON.stringify(v.dados)) up.push({id:k, tipo:v.tipo, dados:v.dados, atualizado_por:session.user.email}); }
+  for(const k of Object.keys(synced)) if(!cur[k]) del.push(k);
+  if(!up.length && !del.length) return setSync('ok');
+  try{
+    for(let i=0;i<up.length;i+=500){ const part = up.slice(i,i+500); const {error} = await sb.from('registros').upsert(part); if(error) throw error; part.forEach(r => synced[r.id] = JSON.stringify(r.dados)); }
+    for(let i=0;i<del.length;i+=200){ const part = del.slice(i,i+200); const {error} = await sb.from('registros').delete().in('id', part); if(error) throw error; part.forEach(k => delete synced[k]); }
+    setSync('ok');
+  }catch(e){ setSync('erro'); toast('⚠️ Não foi possível salvar na nuvem. Verifique a internet.'); setTimeout(()=>{ if(syncState==='erro') queueSync(); }, 8000); }
+}
+async function pullAll(){
+  const rows = [];
+  for(let from=0;;from+=1000){
+    const {data, error} = await sb.from('registros').select('id,tipo,dados').order('id').range(from, from+999);
+    if(error) throw error; rows.push(...data); if(data.length < 1000) break;
+  }
+  const d = emptyDB(); synced = {};
+  rows.forEach(r => { synced[r.id] = JSON.stringify(r.dados); if(r.tipo==='config') Object.assign(d.config, r.dados); else if(d[r.tipo]) d[r.tipo].push(r.dados); });
+  return d;
+}
+function applyRemote(p){
+  if(p.eventType === 'DELETE'){
+    const k = p.old?.id; if(!k || !(k in synced)) return;
+    delete synced[k]; const [t,id] = [k.slice(0,k.indexOf(':')), k.slice(k.indexOf(':')+1)];
+    if(db[t]) db[t] = db[t].filter(r => r.id !== id);
+  } else {
+    const r = p.new; if(!r?.id) return; const j = JSON.stringify(r.dados);
+    if(synced[r.id] === j) return; synced[r.id] = j;
+    if(r.tipo === 'config') Object.assign(db.config, r.dados);
+    else if(db[r.tipo]){ const i = db[r.tipo].findIndex(x => x.id === r.dados.id); if(i>=0) db[r.tipo][i] = r.dados; else db[r.tipo].push(r.dados); }
+  }
+  softRender();
+}
+function softRender(){
+  const a = document.activeElement;
+  if($('#modalRoot').innerHTML || (a && $('#view').contains(a) && /INPUT|TEXTAREA|SELECT/.test(a.tagName))) pendingRender = true; else render();
+}
+function setSync(s){
+  syncState = s; const el = $('#storeInfo'); if(!el || !CLOUD) return;
+  const m = {ok:['#2E9E6A','Sincronizado'],saving:['#D99A2B','Salvando...'],erro:['#D2543F','Sem conexão']}[s];
+  el.innerHTML = `<span class="sync"><span class="dot" style="background:${m[0]}"></span>${m[1]}</span><br><span style="font-size:11px">${esc(session?.user?.email||'')}</span> · <a href="#" onclick="logout();return false" style="color:#D98A5B">Sair</a>`;
+}
+window.addEventListener('beforeunload', e => { if(CLOUD && syncState==='saving'){ e.preventDefault(); e.returnValue=''; } });
+
+function loginScreen(mode='login', msg=''){
+  document.querySelector('.login')?.remove();
+  const d = document.createElement('div'); d.className = 'login';
+  const logo = `<div class="mark"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round">${I.produtos}</svg></div>`;
+  if(mode==='nova'){
+    d.innerHTML = `<form class="box">${logo}<h2>Criar nova senha</h2><p class="muted small">Escolha uma senha com pelo menos 8 caracteres.</p>
+      <div class="field"><label>Nova senha</label><input name="p1" type="password" minlength="8" required autocomplete="new-password"></div>
+      <div class="field"><label>Repita a senha</label><input name="p2" type="password" minlength="8" required autocomplete="new-password"></div>
+      <div class="err"></div><button class="btn primary" style="width:100%;justify-content:center;padding:12px;margin-top:6px">Salvar senha e entrar</button></form>`;
+    d.querySelector('form').onsubmit = async e => { e.preventDefault(); const f = e.target, er = f.querySelector('.err');
+      if(f.p1.value !== f.p2.value) return er.textContent = 'As senhas não são iguais.';
+      const {error} = await sb.auth.updateUser({password:f.p1.value}); if(error) return er.textContent = 'Erro: ' + error.message;
+      history.replaceState(null,'',location.pathname); d.remove(); toast('Senha definida ✓'); enterCloud(); };
+  } else {
+    d.innerHTML = `<form class="box">${logo}<h2>${esc(CFG.nomeLoja||'SofáCRM')}</h2><p class="muted small">Acesso restrito à equipe. Entre com seu e-mail e senha.</p>
+      <div class="field"><label>E-mail</label><input name="email" type="email" required autocomplete="username"></div>
+      <div class="field"><label>Senha</label><input name="senha" type="password" required autocomplete="current-password"></div>
+      <div class="err">${esc(msg)}</div><button class="btn primary" style="width:100%;justify-content:center;padding:12px;margin-top:6px">Entrar</button>
+      <button type="button" class="btn ghost small" style="width:100%;justify-content:center;margin-top:8px" id="esqueci">Esqueci minha senha</button>
+      <p class="muted small" style="text-align:center;margin-top:14px">🔒 Conexão segura · dados privados</p></form>`;
+    const f = d.querySelector('form'), er = f.querySelector('.err');
+    f.onsubmit = async e => { e.preventDefault(); er.textContent=''; const b = f.querySelector('.primary'); b.disabled = true; b.textContent = 'Entrando...';
+      const {data, error} = await sb.auth.signInWithPassword({email:f.email.value.trim(), password:f.senha.value});
+      b.disabled = false; b.textContent = 'Entrar';
+      if(error) return er.textContent = 'E-mail ou senha incorretos.';
+      session = data.session; d.remove(); enterCloud(); };
+    d.querySelector('#esqueci').onclick = async () => { const em = f.email.value.trim(); if(!em) return er.textContent = 'Digite seu e-mail acima primeiro.';
+      const {error} = await sb.auth.resetPasswordForEmail(em, {redirectTo: location.origin + location.pathname});
+      er.style.color = error ? '' : 'var(--green)'; er.textContent = error ? 'Erro: ' + error.message : 'Se o e-mail tiver acesso, enviamos um link para criar nova senha.'; };
+  }
+  document.body.appendChild(d); d.querySelector('input').focus();
+}
+async function enterCloud(){
+  $('#view').innerHTML = '<div class="empty">Carregando dados com segurança...</div>';
+  try{
+    const {data:ok, error:e1} = await sb.rpc('is_membro'); if(e1) throw e1;
+    if(!ok){ await sb.auth.signOut(); session = null; return loginScreen('login','Este e-mail não tem acesso. Peça ao administrador para liberar.'); }
+    db = await pullAll();
+  }catch(e){ $('#view').innerHTML = `<div class="empty">⚠️ Não foi possível conectar ao banco de dados.<br><span class="small">${esc(e.message||e)}</span><br><br><button class="btn" onclick="enterCloud()">Tentar de novo</button></div>`; return; }
+  sb.removeAllChannels();
+  sb.channel('registros').on('postgres_changes', {event:'*', schema:'public', table:'registros'}, applyRemote).subscribe();
+  render(); setSync('ok');
+}
+async function logout(){ await sb.auth.signOut(); session = null; db = emptyDB(); synced = {}; sb.removeAllChannels(); $('#view').innerHTML=''; loginScreen(); }
+async function changePassword(){
+  openForm({title:'Alterar minha senha', fields:[{k:'p1',l:'Nova senha (mín. 8 caracteres)',t:'password',req:1,full:1},{k:'p2',l:'Repita a nova senha',t:'password',req:1,full:1}],
+    onSave: async x => { if(x.p1.length<8 || x.p1!==x.p2) return toast('Senhas diferentes ou muito curtas'); const {error} = await sb.auth.updateUser({password:x.p1}); toast(error ? 'Erro: '+error.message : 'Senha alterada ✓'); } });
+}
+const C = id => db.clients.find(c=>c.id===id);
+const P = id => db.products.find(p=>p.id===id);
+
+function seed(){
+  const products = [
+    {id:'p1',nome:'Sofá Retrátil Milano 3L',categoria:'Retrátil',tecido:'Suede',cor:'Cinza Grafite',hex:'#5B5F66',preco:3490,custo:1900,estoque:6},
+    {id:'p2',nome:'Chesterfield Londres',categoria:'Clássico',tecido:'Couro sintético',cor:'Caramelo',hex:'#A8622E',preco:4890,custo:2700,estoque:3},
+    {id:'p3',nome:'Sofá de Canto Veneza',categoria:'Canto',tecido:'Linho',cor:'Bege Areia',hex:'#C9B79C',preco:5690,custo:3100,estoque:2},
+    {id:'p4',nome:'Sofá-cama Flex',categoria:'Sofá-cama',tecido:'Veludo',cor:'Azul Petróleo',hex:'#235E6F',preco:2190,custo:1150,estoque:8},
+    {id:'p5',nome:'Poltrona Lisboa',categoria:'Poltrona',tecido:'Bouclê',cor:'Off-white',hex:'#E4DED3',preco:1290,custo:620,estoque:1},
+    {id:'p6',nome:'Ilha Modular Roma',categoria:'Modular',tecido:'Linho',cor:'Verde Oliva',hex:'#6E7A4A',preco:7990,custo:4300,estoque:2},
+    {id:'p7',nome:'Puff Baú Bali',categoria:'Puff',tecido:'Veludo',cor:'Rosê',hex:'#C98B8B',preco:390,custo:160,estoque:12}
+  ];
+  const nomes = ['Mariana Alves','Carlos Eduardo Souza','Fernanda Lima','Rafael Oliveira','Juliana Costa','Bruno Martins','Patrícia Gomes','Lucas Ribeiro','Camila Fernandes','Thiago Rocha','Aline Barbosa','Diego Carvalho','Beatriz Nunes','Roberto Mendes','Larissa Pires','Gustavo Teixeira'];
+  const cidades = ['Centro','Jardim América','Vila Nova','Boa Vista','Santa Rosa','Bela Vista'];
+  let s = 7; const rnd = () => (s = (s*9301+49297) % 233280) / 233280;
+  const pick = a => a[Math.floor(rnd()*a.length)];
+  const clients = nomes.map((nome,i)=>({
+    id:'c'+(i+1), nome,
+    tel:'(11) 9'+(8000+Math.floor(rnd()*1999))+'-'+(1000+Math.floor(rnd()*8999)),
+    email:nome.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').split(' ').slice(0,2).join('.')+'@email.com',
+    bairro:pick(cidades), origem:pick(ORIGENS), criado:addDays(-Math.floor(20+rnd()*170)),
+    nascimento:'', notas:''
+  }));
+  clients[0].nascimento = addDays(3, new Date(1990,0,1)).slice(0,4) + addDays(3).slice(4);
+  const orders = [];
+  for(let i=0;i<26;i++){
+    const p = pick(products), c = pick(clients.slice(0,12));
+    const ago = Math.floor(rnd()*175), qtd = rnd()>.85?2:1, desc = rnd()>.6?Math.round(p.preco*.05):0;
+    const st = ago>20?'entregue':ago>12?pick(['pronto','rota','entregue']):pick(['pagamento','producao','producao']);
+    orders.push({id:'o'+(i+1),num:1000+i+1,clienteId:c.id,produtoId:p.id,qtd,preco:p.preco,desconto:desc,total:p.preco*qtd-desc,
+      status:st,pagamento:pick(PAGTOS),data:addDays(-ago),entrega:addDays(-ago+15),obs:''});
+  }
+  orders.sort((a,b)=>a.data<b.data?-1:1).forEach((o,i)=>o.num=1001+i);
+  const dl = (cid,titulo,valor,etapa,pid,dias,notas='') => ({id:uid(),clienteId:cid,titulo,valor,etapa,produtoId:pid,criado:addDays(-dias-3),atualizado:addDays(-dias),notas});
+  const deals = [
+    dl('c13','Sofá de canto p/ sala nova',5690,'novo','p3',0,'Viu o reels do Veneza no Instagram'),
+    dl('c14','Retrátil para home theater',3490,'novo','p1',1),
+    dl('c15','2 poltronas Lisboa',2580,'contato','p5',2,'Quer em bouclê off-white'),
+    dl('c16','Sofá-cama p/ quarto de hóspedes',2190,'contato','p4',8,'Pediu foto do tecido'),
+    dl('c9','Ilha Modular Roma',7990,'orcamento','p6',3,'Arquiteta indicou'),
+    dl('c10','Chesterfield escritório',4890,'orcamento','p2',9),
+    dl('c11','Retrátil Milano + puff',3880,'negociacao','p1',2,'Pediu 10% no Pix'),
+    dl('c12','Sofá de canto Veneza',5690,'negociacao','p3',6),
+    {...dl('c1','Poltrona Lisboa',1290,'ganho','p5',4),pedidoId:'seed'},
+    {...dl('c2','Sofá-cama Flex',2190,'ganho','p4',10),pedidoId:'seed'},
+    dl('c5','Chesterfield Londres',4890,'perdido','p2',15,'Achou caro, comprou em loja online')
+  ];
+  const tasks = [
+    {id:uid(),titulo:'Retornar sobre desconto no Pix',clienteId:'c11',tipo:'WhatsApp',data:TODAY(),feito:false},
+    {id:uid(),titulo:'Enviar fotos do tecido azul petróleo',clienteId:'c16',tipo:'WhatsApp',data:addDays(-1),feito:false},
+    {id:uid(),titulo:'Ligar para fechar orçamento da Ilha',clienteId:'c9',tipo:'Ligar',data:addDays(1),feito:false},
+    {id:uid(),titulo:'Agendar visita ao showroom',clienteId:'c13',tipo:'Visita',data:addDays(2),feito:false},
+    {id:uid(),titulo:'Pós-venda: perguntar sobre a poltrona',clienteId:'c1',tipo:'Pós-venda',data:addDays(4),feito:false},
+    {id:uid(),titulo:'Conferir estoque de bouclê',clienteId:'',tipo:'Outro',data:addDays(-2),feito:true}
+  ];
+  const data = {config:{loja:'Casa & Conforto Sofás',meta:40000},products,clients,orders,deals,tasks};
+  if(!CLOUD){ try{ localStorage.setItem(DB_KEY, JSON.stringify(data)); }catch(e){} }
+  return data;
+}
+
+/* ============ NAVEGAÇÃO ============ */
+const VIEWS = [
+  {id:'painel',nome:'Painel',sub:'Visão geral do seu negócio'},
+  {id:'funil',nome:'Funil de Vendas',sub:'Arraste os cards entre as etapas'},
+  {id:'clientes',nome:'Clientes',sub:'Sua base de clientes e leads'},
+  {id:'pedidos',nome:'Pedidos',sub:'Vendas, produção e entregas'},
+  {id:'produtos',nome:'Produtos',sub:'Catálogo e estoque'},
+  {id:'tarefas',nome:'Agenda',sub:'Follow-ups e compromissos'},
+  {id:'ia',nome:'Assistente IA',sub:'Insights e mensagens automáticas'},
+  {id:'config',nome:'Configurações',sub:'Loja, backup e dados'}
+];
+let state = {view: location.hash.slice(1) || 'painel', clientFilter:'todos', orderFilter:'todos', q:''};
+if(!VIEWS.find(v=>v.id===state.view)) state.view='painel';
+
+function go(v){ state.view=v; location.hash=v; state.q=''; $('#globalSearch').value=''; render(); window.scrollTo(0,0); }
+function renderNav(){
+  const pend = db.tasks.filter(t=>!t.feito && t.data<=TODAY()).length;
+  const abertos = db.deals.filter(d=>!['ganho','perdido'].includes(d.etapa)).length;
+  const cnt = {funil:abertos, tarefas:pend};
+  $('#navList').innerHTML = VIEWS.map(v=>`<button class="nav ${state.view===v.id?'active':''}" onclick="go('${v.id}')">${svg(v.id)}${v.nome}${cnt[v.id]?`<span class="count">${cnt[v.id]}</span>`:''}</button>`).join('');
+  $('#mobileNav').innerHTML = VIEWS.filter(v=>v.id!=='config').map(v=>`<button class="${state.view===v.id?'active':''}" onclick="go('${v.id}')">${svg(v.id)}${v.nome.split(' ')[0]}</button>`).join('');
+  $('#storeName').textContent = db.config.loja;
+}
+function render(){
+  const v = VIEWS.find(x=>x.id===state.view);
+  $('#pageTitle').textContent = v.nome; $('#pageSub').textContent = v.sub;
+  document.title = v.nome + ' — SofáCRM';
+  renderNav();
+  $('#view').innerHTML = R[state.view]();
+  if(state.view==='funil') bindKanban();
+}
+
+/* ============ MÉTRICAS ============ */
+const validOrders = () => db.orders.filter(o=>o.status!=='cancelado');
+function monthKey(s){ return s.slice(0,7); }
+function revenueByMonth(n=6){
+  const out=[]; const d=new Date(); d.setDate(1);
+  for(let i=n-1;i>=0;i--){
+    const m=new Date(d.getFullYear(), d.getMonth()-i, 1); const k=iso(m).slice(0,7);
+    out.push({k, label:m.toLocaleDateString('pt-BR',{month:'short'}).replace('.',''), v:validOrders().filter(o=>monthKey(o.data)===k).reduce((a,o)=>a+o.total,0)});
+  }
+  return out;
+}
+function clientStats(id){
+  const os = validOrders().filter(o=>o.clienteId===id);
+  const last = os.map(o=>o.data).sort().pop();
+  return {pedidos:os.length,total:os.reduce((a,o)=>a+o.total,0),ultima:last};
+}
+function dealScore(d){
+  const c = C(d.clienteId); const parado = daysFrom(d.atualizado);
+  let s = stage(d.etapa).prob*50 + Math.min(d.valor/250,22) + (['Indicação','Loja física'].includes(c?.origem)?12:6) - Math.min(parado*3,30);
+  if(clientStats(d.clienteId).pedidos) s += 10;
+  return s>=55?{t:'Quente',e:'🔥',c:'#D2543F'}:s>=32?{t:'Morno',e:'🌤️',c:'#D99A2B'}:{t:'Frio',e:'❄️',c:'#3C6FD1'};
+}
+
+/* ============ VIEWS ============ */
+const R = {};
+
+R.painel = () => {
+  const rev = revenueByMonth(6);
+  const cur = rev[5].v, prev = rev[4].v;
+  const delta = prev ? ((cur-prev)/prev*100) : 0;
+  const mk = TODAY().slice(0,7);
+  const osMes = validOrders().filter(o=>monthKey(o.data)===mk);
+  const ticket = osMes.length ? cur/osMes.length : 0;
+  const abertos = db.deals.filter(d=>!['ganho','perdido'].includes(d.etapa));
+  const pipe = abertos.reduce((a,d)=>a+d.valor,0);
+  const prev2 = abertos.reduce((a,d)=>a+d.valor*stage(d.etapa).prob,0);
+  const ganhos = db.deals.filter(d=>d.etapa==='ganho').length, perdidos = db.deals.filter(d=>d.etapa==='perdido').length;
+  const conv = ganhos+perdidos ? Math.round(ganhos/(ganhos+perdidos)*100) : 0;
+  const leadsMes = db.clients.filter(c=>monthKey(c.criado)===mk).length + db.deals.filter(d=>monthKey(d.criado)===mk && d.etapa==='novo').length;
+  const meta = db.config.meta||1, pm = Math.min(100, Math.round(cur/meta*100));
+  const max = Math.max(...rev.map(r=>r.v), 1);
+  const tasks = db.tasks.filter(t=>!t.feito).sort((a,b)=>a.data<b.data?-1:1).slice(0,5);
+  const top = {}; validOrders().forEach(o=>top[o.produtoId]=(top[o.produtoId]||0)+o.qtd);
+  const topP = Object.entries(top).sort((a,b)=>b[1]-a[1]).slice(0,4);
+  const ins = insights().slice(0,3);
+  const recentes = [...db.orders].sort((a,b)=>b.data.localeCompare(a.data)).slice(0,5);
+
+  return `
+  <div class="grid kpis">
+    ${kpi('Faturamento do mês', brl(cur), `<span class="${delta>=0?'up':'down'}">${delta>=0?'▲':'▼'} ${Math.abs(delta).toFixed(0)}%</span> <span class="muted">vs mês anterior</span>`, '#B8643A')}
+    ${kpi('Pedidos no mês', osMes.length, `<span class="muted">Ticket médio ${brl(ticket)}</span>`, '#3C6FD1')}
+    ${kpi('Pipeline aberto', brlK(pipe), `<span class="muted">Previsão ${brlK(prev2)}</span>`, '#7B61D1')}
+    ${kpi('Taxa de conversão', conv+'%', `<span class="muted">${ganhos} ganhos · ${perdidos} perdidos</span>`, '#2E9E6A')}
+    ${kpi('Novos leads (mês)', leadsMes, `<span class="muted">${abertos.length} negociações ativas</span>`, '#D99A2B')}
+  </div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card">
+      <div class="card-h"><h3>Faturamento — últimos 6 meses</h3>
+        <span class="badge">Meta do mês: ${brlK(meta)} · ${pm}%</span></div>
+      <div class="card-b">
+        <div class="bars">${rev.map((r,i)=>`<div class="bar ${i===5?'cur':''}" title="${brl(r.v)}"><div class="b" style="height:${Math.max(2,r.v/max*100)}%"><span>${brlK(r.v)}</span></div><small>${r.label}</small></div>`).join('')}</div>
+        <div style="margin-top:18px"><div class="row between small"><b>Progresso da meta</b><span class="muted">${brl(cur)} de ${brl(meta)}</span></div>
+        <div class="funnel-row"><div class="track" style="height:12px"><div class="fill" style="width:${pm}%;background:linear-gradient(90deg,#D98A5B,var(--brand))"></div></div></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-h"><h3>Funil de vendas</h3><button class="btn sm ghost" onclick="go('funil')">Ver tudo →</button></div>
+      <div class="card-b">
+        ${STAGES.slice(0,5).map(s=>{ const ds=db.deals.filter(d=>d.etapa===s.id); const mx=Math.max(...STAGES.map(x=>db.deals.filter(d=>d.etapa===x.id).length),1);
+          return `<div class="funnel-row"><div class="row between small"><span class="row" style="gap:7px"><span class="dot" style="background:${s.cor}"></span><b>${s.nome}</b></span><span class="muted">${ds.length} · ${brlK(ds.reduce((a,d)=>a+d.valor,0))}</span></div><div class="track"><div class="fill" style="width:${ds.length/mx*100}%;background:${s.cor}"></div></div></div>`;}).join('')}
+      </div>
+    </div>
+  </div>
+
+  <div class="grid g3" style="margin-top:16px">
+    <div class="card">
+      <div class="card-h"><h3>✨ Insights da IA</h3><button class="btn sm ghost" onclick="go('ia')">Abrir →</button></div>
+      <div class="card-b">${ins.length?ins.map(insightHTML).join(''):'<div class="empty">Tudo em dia! 🎉</div>'}</div>
+    </div>
+    <div class="card">
+      <div class="card-h"><h3>Próximas tarefas</h3><button class="btn sm ghost" onclick="formTask()">+ Nova</button></div>
+      <div class="card-b">${tasks.length?tasks.map(taskRow).join(''):'<div class="empty">Nenhuma tarefa pendente</div>'}</div>
+    </div>
+    <div class="card">
+      <div class="card-h"><h3>Mais vendidos</h3><button class="btn sm ghost" onclick="go('produtos')">Catálogo →</button></div>
+      <div class="card-b">${topP.map(([pid,q],i)=>{const p=P(pid); if(!p) return ''; return `<div class="list-item"><div style="width:46px;height:34px;display:grid;place-items:center;background:var(--soft);border-radius:8px">${sofaSVG(p.hex,40)}</div><div style="flex:1;min-width:0"><b class="small">${esc(p.nome)}</b><div class="muted small">${q} vendidos</div></div><b class="small">#${i+1}</b></div>`;}).join('')}</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="card-h"><h3>Pedidos recentes</h3><button class="btn sm ghost" onclick="go('pedidos')">Ver todos →</button></div>
+    <div class="table-wrap"><table><thead><tr><th>Pedido</th><th>Cliente</th><th class="hide-m">Produto</th><th>Total</th><th>Status</th></tr></thead>
+    <tbody>${recentes.map(orderRow).join('')}</tbody></table></div>
+  </div>`;
+};
+const kpi = (l,v,d,c) => `<div class="card kpi"><div class="lbl"><span class="dot" style="background:${c}"></span>${l}</div><div class="val">${v}</div><div class="delta">${d}</div></div>`;
+
+R.funil = () => {
+  const q = state.q.toLowerCase();
+  return `<div class="toolbar"><button class="btn primary" onclick="formDeal()">+ Nova oportunidade</button>
+    <span class="muted small">💡 Arraste entre colunas ou use as setas. Ao fechar uma venda, gere o pedido em 1 clique.</span></div>
+  <div class="board">${STAGES.map(s=>{
+    const ds = db.deals.filter(d=>d.etapa===s.id && (!q || (C(d.clienteId)?.nome+' '+d.titulo).toLowerCase().includes(q)));
+    return `<div class="col" data-stage="${s.id}">
+      <div class="col-h"><span class="dot" style="background:${s.cor}"></span>${s.nome}<span class="badge" style="padding:1px 7px">${ds.length}</span><span class="sum">${brlK(ds.reduce((a,d)=>a+d.valor,0))}</span></div>
+      ${ds.map(dealCard).join('') || '<div class="muted small" style="text-align:center;padding:20px 0">Solte aqui</div>'}
+    </div>`;}).join('')}</div>`;
+};
+function dealCard(d){
+  const c = C(d.clienteId), p = P(d.produtoId), sc = dealScore(d), parado = daysFrom(d.atualizado);
+  const i = STAGES.findIndex(s=>s.id===d.etapa);
+  return `<div class="deal" draggable="true" data-id="${d.id}" onclick="formDeal('${d.id}')">
+    <div class="row between" style="margin-bottom:6px">${pill(sc.e+' '+sc.t, sc.c)}<span class="muted small">${parado===0?'hoje':parado+'d'}</span></div>
+    <h4>${esc(d.titulo)}</h4>
+    <div class="muted small">${esc(c?.nome||'Sem cliente')}${p?' · '+esc(p.cor):''}</div>
+    <div class="val">${brl(d.valor)}</div>
+    <div class="foot">
+      <span class="badge">${esc(c?.origem||'—')}</span>
+      <span class="row" style="gap:4px" onclick="event.stopPropagation()">
+        ${c?.tel?`<button class="mv" title="WhatsApp" onclick="waQuick('${c.id}','followup')">💬</button>`:''}
+        ${i>0?`<button class="mv" title="Voltar etapa" onclick="moveDeal('${d.id}','${STAGES[i-1].id}')">‹</button>`:''}
+        ${i<STAGES.length-1?`<button class="mv" title="Avançar etapa" onclick="moveDeal('${d.id}','${STAGES[i+1].id}')">›</button>`:''}
+      </span>
+    </div>
+    ${d.etapa==='ganho' && !d.pedidoId ? `<button class="btn sm primary" style="width:100%;margin-top:10px;justify-content:center" onclick="event.stopPropagation();dealToOrder('${d.id}')">🧾 Gerar pedido</button>`:''}
+  </div>`;
+}
+function bindKanban(){
+  document.querySelectorAll('.deal').forEach(el=>{
+    el.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',el.dataset.id);el.classList.add('dragging');});
+    el.addEventListener('dragend',()=>el.classList.remove('dragging'));
+  });
+  document.querySelectorAll('.col').forEach(col=>{
+    col.addEventListener('dragover',e=>{e.preventDefault();col.classList.add('over');});
+    col.addEventListener('dragleave',()=>col.classList.remove('over'));
+    col.addEventListener('drop',e=>{e.preventDefault();col.classList.remove('over');moveDeal(e.dataTransfer.getData('text/plain'),col.dataset.stage);});
+  });
+}
+function moveDeal(id, etapa){
+  const d = db.deals.find(x=>x.id===id); if(!d || d.etapa===etapa) return;
+  d.etapa = etapa; d.atualizado = TODAY(); save(); render();
+  if(etapa==='ganho'){ toast('🎉 Venda fechada! Gere o pedido no card.'); confetti(); }
+  else toast('Movido para ' + stage(etapa).nome);
+}
+function dealToOrder(id){
+  const d = db.deals.find(x=>x.id===id); const p = P(d.produtoId);
+  formOrder(null, {clienteId:d.clienteId, produtoId:d.produtoId, qtd:1, preco:p?.preco||d.valor, desconto:p?Math.max(0,p.preco-d.valor):0, _deal:d.id});
+}
+
+R.clientes = () => {
+  const q = state.q.toLowerCase(), f = state.clientFilter;
+  const list = db.clients.map(c=>({c,s:clientStats(c.id)})).filter(({c,s})=>{
+    if(q && !(c.nome+c.tel+c.email+c.bairro).toLowerCase().includes(q)) return false;
+    if(f==='compradores') return s.pedidos>0;
+    if(f==='leads') return s.pedidos===0;
+    if(f==='vip') return s.total>=6000;
+    if(f==='inativos') return s.ultima && daysFrom(s.ultima)>90;
+    return true;
+  }).sort((a,b)=>b.c.criado.localeCompare(a.c.criado));
+  const chips = [['todos','Todos'],['compradores','Compradores'],['leads','Só leads'],['vip','VIP (R$6k+)'],['inativos','Inativos 90d+']];
+  return `<div class="toolbar">
+    ${chips.map(([k,l])=>`<button class="chip ${f===k?'on':''}" onclick="state.clientFilter='${k}';render()">${l}</button>`).join('')}
+    <div style="flex:1"></div><button class="btn" onclick="exportCSV()">⬇ Exportar CSV</button><button class="btn primary" onclick="formClient()">+ Novo cliente</button></div>
+  <div class="card"><div class="table-wrap"><table>
+    <thead><tr><th>Cliente</th><th class="hide-m">Contato</th><th class="hide-m">Origem</th><th>Compras</th><th class="hide-m">Última compra</th><th></th></tr></thead>
+    <tbody>${list.map(({c,s})=>`<tr onclick="viewClient('${c.id}')">
+      <td><div class="row">${avatar(c)}<div><b>${esc(c.nome)}</b><div class="muted small">${esc(c.bairro||'')}</div></div></div></td>
+      <td class="hide-m"><div class="small">${esc(c.tel)}</div><div class="muted small">${esc(c.email)}</div></td>
+      <td class="hide-m"><span class="badge">${esc(c.origem)}</span></td>
+      <td><b>${brl(s.total)}</b><div class="muted small">${s.pedidos} pedido(s)</div></td>
+      <td class="hide-m">${s.ultima?fmtDL(s.ultima):'<span class="muted">—</span>'}</td>
+      <td onclick="event.stopPropagation()" style="text-align:right">${c.tel?`<button class="btn sm wa" onclick="waQuick('${c.id}')">WhatsApp</button>`:''}</td>
+    </tr>`).join('') || `<tr><td colspan="6" class="empty">Nenhum cliente encontrado</td></tr>`}</tbody>
+  </table></div></div>`;
+};
+
+R.pedidos = () => {
+  const q = state.q.toLowerCase(), f = state.orderFilter;
+  const list = [...db.orders].filter(o=>{
+    if(f!=='todos' && o.status!==f) return false;
+    if(q && !(C(o.clienteId)?.nome+' '+o.num+' '+P(o.produtoId)?.nome).toLowerCase().includes(q)) return false;
+    return true;
+  }).sort((a,b)=>b.data.localeCompare(a.data));
+  const tot = list.filter(o=>o.status!=='cancelado').reduce((a,o)=>a+o.total,0);
+  return `<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:16px">
+    ${ORDER_ST.slice(0,5).map(s=>`<div class="stat-mini" style="cursor:pointer;border:1px solid ${f===s.id?s.cor:'transparent'}" onclick="state.orderFilter=state.orderFilter==='${s.id}'?'todos':'${s.id}';render()"><span class="small muted row" style="gap:6px"><span class="dot" style="background:${s.cor}"></span>${s.nome}</span><b>${db.orders.filter(o=>o.status===s.id).length}</b></div>`).join('')}
+  </div>
+  <div class="toolbar">
+    <button class="chip ${f==='todos'?'on':''}" onclick="state.orderFilter='todos';render()">Todos</button>
+    ${ORDER_ST.map(s=>`<button class="chip ${f===s.id?'on':''}" onclick="state.orderFilter='${s.id}';render()">${s.nome}</button>`).join('')}
+    <div style="flex:1"></div><span class="muted small">${list.length} pedidos · <b>${brl(tot)}</b></span>
+    <button class="btn primary" onclick="formOrder()">+ Novo pedido</button></div>
+  <div class="card"><div class="table-wrap"><table>
+    <thead><tr><th>Pedido</th><th>Cliente</th><th class="hide-m">Produto</th><th>Total</th><th>Status</th></tr></thead>
+    <tbody>${list.map(orderRow).join('') || `<tr><td colspan="5" class="empty">Nenhum pedido</td></tr>`}</tbody>
+  </table></div></div>`;
+};
+function orderRow(o){
+  const c=C(o.clienteId), p=P(o.produtoId), s=ost(o.status);
+  const late = !['entregue','cancelado'].includes(o.status) && o.entrega < TODAY();
+  return `<tr onclick="formOrder('${o.id}')">
+    <td><b>#${o.num}</b><div class="muted small">${fmtD(o.data)}</div></td>
+    <td><div class="row">${avatar(c)}<span>${esc(c?.nome||'—')}</span></div></td>
+    <td class="hide-m">${esc(p?.nome||'—')}${o.qtd>1?` <span class="muted">×${o.qtd}</span>`:''}<div class="muted small">Entrega ${fmtD(o.entrega)} ${late?'<span style="color:var(--red);font-weight:600">· atrasado</span>':''}</div></td>
+    <td><b>${brl(o.total)}</b><div class="muted small">${esc(o.pagamento)}</div></td>
+    <td>${pill(s.nome,s.cor)}</td></tr>`;
+}
+
+R.produtos = () => {
+  const q = state.q.toLowerCase();
+  const list = db.products.filter(p=>!q || (p.nome+p.cor+p.tecido+p.categoria).toLowerCase().includes(q));
+  const valorEst = db.products.reduce((a,p)=>a+p.preco*p.estoque,0);
+  return `<div class="toolbar"><span class="badge">${db.products.length} produtos</span><span class="badge">${db.products.reduce((a,p)=>a+p.estoque,0)} un. em estoque</span><span class="badge">Valor em estoque: ${brl(valorEst)}</span>
+    <div style="flex:1"></div><button class="btn primary" onclick="formProduct()">+ Novo produto</button></div>
+  <div class="grid prods">${list.map(p=>{
+    const st = p.estoque<=0?['Esgotado','#D2543F']:p.estoque<=2?['Estoque baixo','#D99A2B']:['Em estoque','#2E9E6A'];
+    const margem = p.preco? Math.round((p.preco-p.custo)/p.preco*100):0;
+    return `<div class="card prod" style="cursor:pointer" onclick="formProduct('${p.id}')">
+      <div class="img" style="background:linear-gradient(160deg,${p.hex}22,${p.hex}08)">${sofaSVG(p.hex)}<span class="st">${pill(st[0]+' · '+p.estoque,st[1])}</span></div>
+      <div class="card-b"><div class="muted small">${esc(p.categoria)} · ${esc(p.tecido)}</div><h4>${esc(p.nome)}</h4>
+        <div class="row small muted" style="gap:6px;margin:4px 0 10px"><span class="dot" style="background:${p.hex};width:10px;height:10px;border:1px solid #0002"></span>${esc(p.cor)}</div>
+        <div class="row between"><span class="price">${brl(p.preco)}</span><span class="badge">Margem ${margem}%</span></div>
+      </div></div>`;}).join('')}</div>`;
+};
+
+R.tarefas = () => {
+  const pend = db.tasks.filter(t=>!t.feito).sort((a,b)=>a.data.localeCompare(b.data));
+  const groups = [['⚠️ Atrasadas',pend.filter(t=>t.data<TODAY())],['📌 Hoje',pend.filter(t=>t.data===TODAY())],['📅 Próximos dias',pend.filter(t=>t.data>TODAY())]];
+  const feitas = db.tasks.filter(t=>t.feito).slice(-8).reverse();
+  return `<div class="toolbar"><button class="btn primary" onclick="formTask()">+ Nova tarefa</button><span class="muted small">${pend.length} pendentes</span></div>
+  <div class="grid g2"><div class="grid">${groups.map(([t,l])=>`<div class="card"><div class="card-h"><h3>${t} <span class="badge">${l.length}</span></h3></div><div class="card-b">${l.map(taskRow).join('')||'<div class="muted small">Nada por aqui</div>'}</div></div>`).join('')}</div>
+  <div class="card" style="align-self:start"><div class="card-h"><h3>✅ Concluídas</h3></div><div class="card-b">${feitas.map(taskRow).join('')||'<div class="muted small">Nenhuma ainda</div>'}</div></div></div>`;
+};
+function taskRow(t){
+  const c = C(t.clienteId); const late = !t.feito && t.data<TODAY();
+  return `<div class="list-item"><div class="check ${t.feito?'on':''}" onclick="toggleTask('${t.id}')">${t.feito?'✓':''}</div>
+    <div style="flex:1;min-width:0;cursor:pointer" onclick="formTask('${t.id}')"><div class="${t.feito?'done':''}" style="font-weight:600;font-size:13px">${esc(t.titulo)}</div>
+    <div class="muted small">${esc(t.tipo)}${c?' · '+esc(c.nome):''} · <span style="${late?'color:var(--red);font-weight:600':''}">${relDay(t.data)}</span></div></div>
+    ${c?.tel && !t.feito?`<button class="mv" title="WhatsApp" onclick="waQuick('${c.id}')">💬</button>`:''}</div>`;
+}
+function toggleTask(id){ const t=db.tasks.find(x=>x.id===id); t.feito=!t.feito; save(); render(); if(t.feito) toast('Tarefa concluída ✓'); }
+
+/* ============ IA ============ */
+function insights(){
+  const out = [];
+  const abertos = db.deals.filter(d=>!['ganho','perdido'].includes(d.etapa));
+  const parados = abertos.filter(d=>daysFrom(d.atualizado)>=5);
+  if(parados.length) out.push({ic:'⏳',cor:'#D99A2B',t:`${parados.length} negociação(ões) parada(s) há 5+ dias`,d:`${parados.slice(0,3).map(d=>firstName(C(d.clienteId)?.nome)).join(', ')} — ${brl(parados.reduce((a,d)=>a+d.valor,0))} em risco. Mande um follow-up hoje.`,a:`go('ia');setTimeout(()=>pickMsg('${parados[0].clienteId}','followup'),50)`,al:'Gerar follow-up'});
+  const atr = db.tasks.filter(t=>!t.feito && t.data<TODAY());
+  if(atr.length) out.push({ic:'⚠️',cor:'#D2543F',t:`${atr.length} tarefa(s) atrasada(s)`,d:atr.slice(0,2).map(t=>t.titulo).join(' · '),a:"go('tarefas')",al:'Ver agenda'});
+  const hot = abertos.filter(d=>dealScore(d).t==='Quente');
+  if(hot.length) out.push({ic:'🔥',cor:'#D2543F',t:`${hot.length} lead(s) quente(s) prontos para fechar`,d:hot.slice(0,3).map(d=>`${firstName(C(d.clienteId)?.nome)} (${brlK(d.valor)})`).join(', ')+'. Priorize esses contatos!',a:"go('funil')",al:'Abrir funil'});
+  const low = db.products.filter(p=>p.estoque<=2);
+  if(low.length) out.push({ic:'📦',cor:'#7B61D1',t:`Estoque baixo em ${low.length} produto(s)`,d:low.map(p=>`${p.nome} (${p.estoque})`).join(', ')+'. Faça reposição com o fornecedor.',a:"go('produtos')",al:'Ver produtos'});
+  const ent = db.orders.filter(o=>['pronto','rota','producao'].includes(o.status) && o.entrega>=TODAY() && daysFrom(o.entrega)>=-3);
+  if(ent.length) out.push({ic:'🚚',cor:'#3C6FD1',t:`${ent.length} entrega(s) nos próximos 3 dias`,d:ent.map(o=>`#${o.num} ${firstName(C(o.clienteId)?.nome)}`).join(', ')+'. Confirme endereço e horário.',a:`go('ia');setTimeout(()=>pickMsg('${ent[0].clienteId}','entrega'),50)`,al:'Avisar cliente'});
+  const atrasados = db.orders.filter(o=>!['entregue','cancelado'].includes(o.status) && o.entrega<TODAY());
+  if(atrasados.length) out.push({ic:'🕒',cor:'#D2543F',t:`${atrasados.length} pedido(s) com entrega atrasada`,d:atrasados.slice(0,3).map(o=>`#${o.num}`).join(', ')+' — atualize o status ou avise o cliente.',a:"state.orderFilter='todos';go('pedidos')",al:'Ver pedidos'});
+  const inat = db.clients.filter(c=>{const s=clientStats(c.id);return s.ultima && daysFrom(s.ultima)>90;});
+  if(inat.length) out.push({ic:'💤',cor:'#5B6472',t:`${inat.length} cliente(s) sem comprar há 90+ dias`,d:'Ótima hora para oferecer puff, almofadas ou impermeabilização. Campanha de reativação sugerida.',a:`go('ia');setTimeout(()=>pickMsg('${inat[0].id}','reativacao'),50)`,al:'Criar mensagem'});
+  const orig = {}; db.deals.forEach(d=>{const o=C(d.clienteId)?.origem||'—';orig[o]=orig[o]||{g:0,t:0};orig[o].t++;if(d.etapa==='ganho')orig[o].g++;});
+  validOrders().forEach(o=>{const og=C(o.clienteId)?.origem; if(og){orig[og]=orig[og]||{g:0,t:0}; orig[og].v=(orig[og].v||0)+o.total;}});
+  const best = Object.entries(orig).filter(([,v])=>v.v).sort((a,b)=>b[1].v-a[1].v)[0];
+  if(best) out.push({ic:'📈',cor:'#2E9E6A',t:`${best[0]} é seu canal que mais fatura`,d:`${brl(best[1].v)} em vendas vieram de lá. Invista mais em conteúdo e anúncios nesse canal.`});
+  const bday = db.clients.filter(c=>c.nascimento && (()=>{const n=c.nascimento.slice(5);for(let i=0;i<=7;i++){if(addDays(i).slice(5)===n)return true;}return false;})());
+  if(bday.length) out.push({ic:'🎂',cor:'#C2477A',t:`Aniversário chegando: ${bday.map(c=>firstName(c.nome)).join(', ')}`,d:'Envie um parabéns com um cupom especial — gera recompra e indicação.',a:`go('ia');setTimeout(()=>pickMsg('${bday[0].id}','aniversario'),50)`,al:'Mandar parabéns'});
+  return out;
+}
+const insightHTML = x => `<div class="insight"><div class="ic" style="background:${x.cor}1f">${x.ic}</div><div style="flex:1"><b>${esc(x.t)}</b><div class="muted small">${esc(x.d)}</div>${x.a?`<button class="btn sm" style="margin-top:8px" onclick="${x.a}">${x.al} →</button>`:''}</div></div>`;
+
+const MSG_TYPES = {
+  followup:'Follow-up de orçamento', orcamento:'Envio de orçamento', fechamento:'Oferta de fechamento',
+  entrega:'Aviso de entrega', posvenda:'Pós-venda', reativacao:'Reativação', aniversario:'Aniversário', indicacao:'Pedir indicação'
+};
+function clientProduct(cid){
+  const d = db.deals.filter(x=>x.clienteId===cid).sort((a,b)=>b.atualizado.localeCompare(a.atualizado))[0];
+  const o = db.orders.filter(x=>x.clienteId===cid).sort((a,b)=>b.data.localeCompare(a.data))[0];
+  return {deal:d, order:o, prod:P(d?.produtoId)||P(o?.produtoId)};
+}
+function genMsg(cid, tipo){
+  const c = C(cid); if(!c) return '';
+  const n = firstName(c.nome), loja = db.config.loja, {deal,order,prod} = clientProduct(cid);
+  const pn = prod ? `${prod.nome} (${prod.cor})` : 'o sofá que você viu';
+  const h = new Date().getHours(), saud = h<12?'Bom dia':h<18?'Boa tarde':'Boa noite';
+  const T = {
+    followup:`${saud}, ${n}! Tudo bem? 😊\nAqui é da ${loja}. Passando pra saber se ficou alguma dúvida sobre o ${pn}.\n\nConsigo segurar uma condição especial pra você até sexta. Quer que eu te mande os detalhes?`,
+    orcamento:`${saud}, ${n}! Conforme conversamos, segue seu orçamento:\n\n🛋️ ${pn}\n💰 ${brl(deal?.valor||prod?.preco||0)}\n💳 Em até 10x sem juros ou 5% off no Pix\n🚚 Entrega e montagem inclusas\n\nPosso reservar pra você?`,
+    fechamento:`${n}, tenho uma ótima notícia! 🎉\nConsegui liberar uma condição exclusiva no ${pn}: ${brl(Math.round((deal?.valor||prod?.preco||0)*0.93))} no Pix (7% off) + frete grátis.\n\nVálido só até amanhã. Fechamos?`,
+    entrega:`Olá, ${n}! 🚚\nSeu pedido${order?` #${order.num}`:''} da ${loja} está com entrega prevista para ${fmtDL(order?.entrega||addDays(2))}.\n\nPode confirmar o endereço e um horário de preferência? Obrigado!`,
+    posvenda:`Oi, ${n}! Aqui é da ${loja} 😊\nQueria saber: como está sendo a experiência com o ${pn}? Ficou do jeitinho que você imaginou?\n\nSe puder, deixa uma avaliação pra gente — ajuda muito! ⭐`,
+    reativacao:`${saud}, ${n}! Que saudade! 💛\nAqui é da ${loja}. Chegaram novidades lindas na loja e separei um cupom de 10% OFF exclusivo pra você em puffs, poltronas e impermeabilização.\n\nQuer que eu mande umas fotos?`,
+    aniversario:`Feliz aniversário, ${n}! 🎂🎉\nToda a equipe da ${loja} te deseja um ano incrível.\n\nDe presente, você ganhou 15% OFF em qualquer produto da loja, válido por 30 dias. Aproveite!`,
+    indicacao:`Oi, ${n}! Ficamos muito felizes em ter você como cliente 💛\nSe tiver algum amigo ou familiar procurando sofá, indica a ${loja}! Quem indicar ganha R$ 100 de desconto na próxima compra e a pessoa indicada também. 🤝`
+  };
+  return T[tipo]||'';
+}
+let ai = {cid:'', tipo:'followup'};
+R.ia = () => {
+  if(!ai.cid) ai.cid = db.deals.find(d=>!['ganho','perdido'].includes(d.etapa))?.clienteId || db.clients[0]?.id;
+  const ins = insights();
+  const abertos = db.deals.filter(d=>!['ganho','perdido'].includes(d.etapa)).sort((a,b)=>{const o={Quente:0,Morno:1,Frio:2};return o[dealScore(a).t]-o[dealScore(b).t];});
+  const prevMes = abertos.reduce((a,d)=>a+d.valor*stage(d.etapa).prob,0);
+  return `<div class="ai-hero"><div style="position:relative;z-index:1"><div class="badge" style="background:#ffffff22;color:#fff;margin-bottom:10px">${svg('ia',13)} Assistente inteligente</div>
+    <h2>${saudacao()}! Encontrei ${ins.length} oportunidade(s) de melhoria hoje.</h2>
+    <div style="opacity:.85;max-width:620px">Analiso seu funil, estoque, pedidos e agenda para dizer onde agir primeiro — e escrevo as mensagens de WhatsApp por você.</div>
+    <div class="row wrap" style="margin-top:16px;gap:24px"><div><div style="opacity:.7;font-size:12px">Previsão de vendas (ponderada)</div><b style="font-size:22px">${brl(prevMes)}</b></div>
+    <div><div style="opacity:.7;font-size:12px">Leads quentes</div><b style="font-size:22px">${abertos.filter(d=>dealScore(d).t==='Quente').length}</b></div>
+    <div><div style="opacity:.7;font-size:12px">Ações sugeridas</div><b style="font-size:22px">${ins.filter(i=>i.a).length}</b></div></div></div></div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card"><div class="card-h"><h3>✍️ Gerador de mensagens</h3><span class="muted small">Pronto para WhatsApp</span></div>
+      <div class="card-b">
+        <div class="form" style="margin-bottom:12px">
+          <div class="field"><label>Cliente</label><select id="aiC" onchange="ai.cid=this.value;updMsg()">${db.clients.map(c=>`<option value="${c.id}" ${c.id===ai.cid?'selected':''}>${esc(c.nome)}</option>`).join('')}</select></div>
+          <div class="field"><label>Tipo de mensagem</label><select id="aiT" onchange="ai.tipo=this.value;updMsg()">${Object.entries(MSG_TYPES).map(([k,v])=>`<option value="${k}" ${k===ai.tipo?'selected':''}>${v}</option>`).join('')}</select></div>
+        </div>
+        <textarea class="msg" id="aiMsg">${esc(genMsg(ai.cid,ai.tipo))}</textarea>
+        <div class="row wrap" style="margin-top:12px">
+          <button class="btn wa" onclick="sendWA(ai.cid, $('#aiMsg').value)">💬 Enviar no WhatsApp</button>
+          <button class="btn" onclick="copyTxt($('#aiMsg').value)">📋 Copiar</button>
+          <button class="btn ghost" onclick="updMsg()">↻ Regerar</button>
+        </div>
+      </div></div>
+    <div class="card"><div class="card-h"><h3>🎯 Prioridade de contato</h3><span class="muted small">Lead scoring automático</span></div>
+      <div class="card-b">${abertos.slice(0,7).map(d=>{const c=C(d.clienteId),sc=dealScore(d);return `<div class="list-item">${avatar(c)}<div style="flex:1;min-width:0"><b class="small">${esc(c?.nome)}</b><div class="muted small">${stage(d.etapa).nome} · ${brl(d.valor)}</div></div>${pill(sc.e+' '+sc.t,sc.c)}<button class="mv" onclick="pickMsg('${d.clienteId}','${d.etapa==='negociacao'?'fechamento':d.etapa==='orcamento'?'followup':'orcamento'}')" title="Gerar mensagem">✍️</button></div>`;}).join('')||'<div class="empty">Sem negociações abertas</div>'}</div></div>
+  </div>
+
+  <div class="card" style="margin-top:16px"><div class="card-h"><h3>💡 Todos os insights</h3></div>
+    <div class="card-b grid" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:0 14px">${ins.map(insightHTML).join('')||'<div class="empty">Tudo em ordem por aqui!</div>'}</div></div>`;
+};
+function saudacao(){ const h=new Date().getHours(); return h<12?'Bom dia':h<18?'Boa tarde':'Boa noite'; }
+function updMsg(){ $('#aiMsg').value = genMsg(ai.cid, ai.tipo); }
+function pickMsg(cid,tipo){ ai.cid=cid; ai.tipo=tipo; if(state.view!=='ia') go('ia'); else render(); setTimeout(()=>$('#aiMsg')?.scrollIntoView({behavior:'smooth',block:'center'}),60); }
+function waNumber(tel){ let n=(tel||'').replace(/\D/g,''); if(n && !n.startsWith('55')) n='55'+n; return n; }
+function sendWA(cid,txt){ const c=C(cid); if(!c?.tel) return toast('Cliente sem telefone cadastrado');
+  const url=`https://wa.me/${waNumber(c.tel)}?text=${encodeURIComponent(txt)}`; let w=null; try{ w=window.open(url,'_blank'); }catch(e){}
+  if(!w) modal(`<div class="modal" style="width:min(440px,100%)"><div class="modal-h"><h2>Enviar no WhatsApp</h2><button class="icon-btn" onclick="closeModal()">✕</button></div><div class="modal-b"><p class="muted small" style="margin-bottom:14px">Mensagem pronta para <b>${esc(c.nome)}</b> (${esc(c.tel)}).</p><a class="btn wa" href="${url}" target="_blank" rel="noopener" onclick="closeModal()">💬 Abrir conversa no WhatsApp</a></div></div>`); }
+function waQuick(cid,tipo){ const {deal,order}=clientProduct(cid); const t = tipo || (deal && !['ganho','perdido'].includes(deal.etapa)?'followup':order?'posvenda':'reativacao'); sendWA(cid, genMsg(cid,t)); }
+function copyTxt(t){ navigator.clipboard?.writeText(t).then(()=>toast('Copiado! ✓')).catch(()=>toast('Não foi possível copiar')); }
+
+R.config = () => `<div class="grid g2">
+  <div class="card"><div class="card-h"><h3>🏪 Dados da loja</h3></div><div class="card-b">
+    <div class="form"><div class="field full"><label>Nome da loja (usado nas mensagens)</label><input id="cfLoja" value="${esc(db.config.loja)}"></div>
+    <div class="field full"><label>Meta de faturamento mensal (R$)</label><input id="cfMeta" type="number" value="${db.config.meta}"></div></div>
+    <button class="btn primary" style="margin-top:14px" onclick="db.config.loja=$('#cfLoja').value||'Minha Loja';db.config.meta=+$('#cfMeta').value||0;save();render();toast('Configurações salvas ✓')">Salvar</button>
+  </div></div>
+  <div class="card"><div class="card-h"><h3>💾 Backup e dados</h3></div><div class="card-b">
+    <p class="muted small" style="margin-bottom:14px">${CLOUD?'☁️ Os dados ficam no banco de dados privado da empresa e sincronizam entre todos os usuários. O backup é uma cópia extra de segurança.':'Os dados ficam salvos neste navegador. Faça backup regularmente e importe em outro computador ou celular.'}</p>
+    <div class="row wrap"><button class="btn" onclick="exportJSON()">⬇ Baixar backup</button>
+    <label class="btn" style="cursor:pointer">⬆ Restaurar backup<input type="file" accept=".json" hidden onchange="importJSON(this.files[0])"></label>
+    <button class="btn" onclick="exportCSV()">⬇ Clientes (CSV)</button></div>
+    <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
+    <div class="row wrap"><button class="btn danger" onclick="askConfirm(CLOUD?'Apagar TODOS os dados da empresa (para todos os usuários) e começar do zero?':'Apagar TODOS os dados e começar do zero?',()=>{db={config:db.config,products:[],clients:[],orders:[],deals:[],tasks:[],};save();render();toast('Base zerada')})">🗑 Começar do zero</button>
+    <button class="btn danger" onclick="askConfirm('Substituir tudo pelos dados de demonstração?',()=>{localStorage.removeItem(DB_KEY);const sd=seed();if(CLOUD){sd.config.loja=db.config.loja;}db=sd;save();render();toast('Dados de demonstração carregados')})">↻ Recarregar demonstração</button></div>
+  </div></div>
+</div>
+${CLOUD?`<div class="card" style="margin-top:16px"><div class="card-h"><h3>👤 Minha conta</h3></div><div class="card-b row wrap between"><div><b>${esc(session?.user?.email||'')}</b><div class="muted small">Acesso protegido por login · banco de dados privado</div></div><div class="row"><button class="btn" onclick="changePassword()">🔑 Alterar senha</button><button class="btn danger" onclick="logout()">Sair</button></div></div></div>`:''}`;
+
+/* ============ CLIENTE (DETALHE) ============ */
+function viewClient(id){
+  const c = C(id), s = clientStats(id);
+  const deals = db.deals.filter(d=>d.clienteId===id), orders = db.orders.filter(o=>o.clienteId===id).sort((a,b)=>b.data.localeCompare(a.data));
+  const tasks = db.tasks.filter(t=>t.clienteId===id && !t.feito);
+  modal(`<div class="modal wide"><div class="modal-h"><div class="row">${avatar(c)}<div><h2>${esc(c.nome)}</h2><div class="muted small">Cliente desde ${fmtDL(c.criado)} · via ${esc(c.origem)}</div></div></div><button class="icon-btn" onclick="closeModal()">✕</button></div>
+  <div class="modal-b">
+    <div class="grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:16px">
+      <div class="stat-mini"><span class="muted small">Total gasto</span><b>${brl(s.total)}</b></div>
+      <div class="stat-mini"><span class="muted small">Pedidos</span><b>${s.pedidos}</b></div>
+      <div class="stat-mini"><span class="muted small">Última compra</span><b>${s.ultima?fmtD(s.ultima):'—'}</b></div>
+    </div>
+    <div class="row wrap small" style="gap:18px;margin-bottom:16px"><span>📞 ${esc(c.tel||'—')}</span><span>✉️ ${esc(c.email||'—')}</span><span>📍 ${esc(c.bairro||'—')}</span>${c.nascimento?`<span>🎂 ${fmtD(c.nascimento)}</span>`:''}</div>
+    ${c.notas?`<div class="stat-mini small" style="margin-bottom:16px">📝 ${esc(c.notas)}</div>`:''}
+    <div class="grid g2" style="grid-template-columns:1fr 1fr">
+      <div><h3 style="font-size:13.5px;margin-bottom:10px">Negociações</h3>${deals.map(d=>`<div class="list-item" style="cursor:pointer" onclick="formDeal('${d.id}')"><div style="flex:1"><b class="small">${esc(d.titulo)}</b><div class="muted small">${brl(d.valor)}</div></div>${pill(stage(d.etapa).nome,stage(d.etapa).cor)}</div>`).join('')||'<div class="muted small">Nenhuma</div>'}
+      ${tasks.length?`<h3 style="font-size:13.5px;margin:16px 0 6px">Tarefas</h3>${tasks.map(taskRow).join('')}`:''}</div>
+      <div><h3 style="font-size:13.5px;margin-bottom:10px">Histórico de compras</h3>${orders.length?`<div class="timeline">${orders.map(o=>`<div class="t" style="cursor:pointer" onclick="formOrder('${o.id}')"><b class="small">#${o.num} · ${brl(o.total)}</b><div class="muted small">${esc(P(o.produtoId)?.nome||'')} · ${fmtDL(o.data)}</div></div>`).join('')}</div>`:'<div class="muted small">Ainda não comprou</div>'}</div>
+    </div>
+  </div>
+  <div class="modal-f" style="justify-content:space-between;flex-wrap:wrap">
+    <div class="row wrap"><button class="btn sm" onclick="formDeal(null,{clienteId:'${id}'})">+ Oportunidade</button><button class="btn sm" onclick="formOrder(null,{clienteId:'${id}'})">+ Pedido</button><button class="btn sm" onclick="formTask(null,{clienteId:'${id}'})">+ Tarefa</button></div>
+    <div class="row"><button class="btn sm" onclick="formClient('${id}')">✏️ Editar</button><button class="btn sm" onclick="closeModal();pickMsg('${id}','${s.pedidos?'posvenda':'followup'}')">✍️ Mensagem IA</button>${c.tel?`<button class="btn sm wa" onclick="waQuick('${id}')">WhatsApp</button>`:''}</div>
+  </div></div>`);
+}
+
+/* ============ FORMULÁRIOS ============ */
+function openForm({title, fields, values={}, onSave, onDelete, extra=''}){
+  const f = fields.map(x=>{
+    const v = values[x.k] ?? x.def ?? '';
+    let inp;
+    if(x.t==='select') inp = `<select name="${x.k}" ${x.req?'required':''}>${x.opts.map(o=>{const [ov,ol]=Array.isArray(o)?o:[o,o];return `<option value="${esc(ov)}" ${String(ov)===String(v)?'selected':''}>${esc(ol)}</option>`;}).join('')}</select>`;
+    else if(x.t==='textarea') inp = `<textarea name="${x.k}">${esc(v)}</textarea>`;
+    else inp = `<input name="${x.k}" type="${x.t||'text'}" value="${esc(v)}" ${x.req?'required':''} ${x.t==='number'?'step="any" min="0"':''} placeholder="${esc(x.ph||'')}">`;
+    return `<div class="field ${x.full?'full':''}"><label>${x.l}${x.req?' *':''}</label>${inp}</div>`;
+  }).join('');
+  modal(`<form class="modal" id="theForm"><div class="modal-h"><h2>${title}</h2><button type="button" class="icon-btn" onclick="closeModal()">✕</button></div>
+    <div class="modal-b"><div class="form">${f}</div>${extra}</div>
+    <div class="modal-f">${onDelete?'<button type="button" class="btn danger" id="delBtn" style="margin-right:auto">Excluir</button>':''}<button type="button" class="btn" onclick="closeModal()">Cancelar</button><button class="btn primary">Salvar</button></div></form>`);
+  const form = $('#theForm');
+  form.onsubmit = e => { e.preventDefault(); const data = Object.fromEntries(new FormData(form)); fields.forEach(x=>{ if(x.t==='number') data[x.k]=+data[x.k]||0; }); onSave(data); closeModal(); save(); render(); };
+  if(onDelete) $('#delBtn').onclick = () => { askConfirm('Tem certeza que deseja excluir? Essa ação não pode ser desfeita.',()=>{ onDelete(); save(); render(); toast('Excluído'); }) };
+  form.querySelector('input,select')?.focus();
+  return form;
+}
+const clientOpts = () => db.clients.slice().sort((a,b)=>a.nome.localeCompare(b.nome)).map(c=>[c.id,c.nome]);
+const prodOpts = () => db.products.map(p=>[p.id,`${p.nome} — ${p.cor} (${brl(p.preco)})`]);
+
+function formClient(id, pre={}){
+  closeQuick(); const c = id ? C(id) : null;
+  openForm({title: c?'Editar cliente':'Novo cliente', values: c||pre,
+    fields:[{k:'nome',l:'Nome completo',req:1,full:1},{k:'tel',l:'WhatsApp / Telefone',t:'tel',ph:'(11) 99999-9999'},{k:'email',l:'E-mail',t:'email'},
+      {k:'bairro',l:'Bairro / Cidade'},{k:'origem',l:'Como nos conheceu',t:'select',opts:ORIGENS},{k:'nascimento',l:'Data de nascimento',t:'date'},
+      {k:'criado',l:'Cadastrado em',t:'date',def:TODAY()},{k:'notas',l:'Observações (preferências, medidas da sala...)',t:'textarea',full:1}],
+    onSave: d => { if(c) Object.assign(c,d); else { db.clients.push({id:uid(),...d}); } toast(c?'Cliente atualizado ✓':'Cliente cadastrado ✓'); },
+    onDelete: c ? () => { db.clients = db.clients.filter(x=>x.id!==id); db.deals = db.deals.filter(x=>x.clienteId!==id); db.tasks=db.tasks.filter(x=>x.clienteId!==id); } : null
+  });
+}
+function formDeal(id, pre={}){
+  closeQuick();
+  if(!db.clients.length) return toast('Cadastre um cliente primeiro');
+  const d = id ? db.deals.find(x=>x.id===id) : null;
+  const form = openForm({title: d?'Editar oportunidade':'Nova oportunidade', values: d||pre,
+    fields:[{k:'clienteId',l:'Cliente',t:'select',opts:clientOpts(),req:1,full:1},{k:'titulo',l:'O que o cliente quer',req:1,full:1,ph:'Ex: Sofá retrátil para sala de TV'},
+      {k:'produtoId',l:'Produto de interesse',t:'select',opts:[['','— Nenhum —'],...prodOpts()],full:1},{k:'valor',l:'Valor estimado (R$)',t:'number',req:1},
+      {k:'etapa',l:'Etapa',t:'select',opts:STAGES.map(s=>[s.id,s.nome])},{k:'notas',l:'Anotações',t:'textarea',full:1}],
+    onSave: x => { const prevSt = d?.etapa; if(d){ Object.assign(d,x); if(prevSt!==x.etapa) d.atualizado=TODAY(); } else db.deals.push({id:uid(),...x,criado:TODAY(),atualizado:TODAY()}); toast('Oportunidade salva ✓'); if(x.etapa==='ganho' && prevSt!=='ganho') confetti(); },
+    onDelete: d ? () => { db.deals = db.deals.filter(x=>x.id!==id); } : null
+  });
+  const ps = form.querySelector('[name=produtoId]'), vl = form.querySelector('[name=valor]'), tt = form.querySelector('[name=titulo]');
+  ps.onchange = () => { const p=P(ps.value); if(p){ if(!+vl.value) vl.value=p.preco; if(!tt.value) tt.value=p.nome; } };
+}
+function formOrder(id, pre={}){
+  closeQuick();
+  if(!db.clients.length || !db.products.length) return toast('Cadastre clientes e produtos primeiro');
+  const o = id ? db.orders.find(x=>x.id===id) : null;
+  const base = o || {preco:P(pre.produtoId||db.products[0].id)?.preco, qtd:1, desconto:0, data:TODAY(), entrega:addDays(15), status:'pagamento', ...pre};
+  const form = openForm({title: o?`Pedido #${o.num}`:'Novo pedido', values: base,
+    fields:[{k:'clienteId',l:'Cliente',t:'select',opts:clientOpts(),req:1,full:1},{k:'produtoId',l:'Produto',t:'select',opts:prodOpts(),req:1,full:1},
+      {k:'qtd',l:'Quantidade',t:'number',def:1},{k:'preco',l:'Preço unitário (R$)',t:'number'},{k:'desconto',l:'Desconto (R$)',t:'number',def:0},
+      {k:'pagamento',l:'Forma de pagamento',t:'select',opts:PAGTOS},{k:'data',l:'Data da venda',t:'date'},{k:'entrega',l:'Previsão de entrega',t:'date'},
+      {k:'status',l:'Status',t:'select',opts:ORDER_ST.map(s=>[s.id,s.nome]),full:1},{k:'obs',l:'Observações (endereço, tecido, medidas...)',t:'textarea',full:1}],
+    extra:`<div class="stat-mini row between" style="margin-top:14px"><span class="muted">Total do pedido</span><b id="oTotal" style="font-size:20px"></b></div>
+      ${o?`<div class="row wrap" style="margin-top:12px"><button type="button" class="btn sm wa" onclick="sendWA('${o.clienteId}',genMsg('${o.clienteId}','entrega'))">💬 Avisar entrega</button><button type="button" class="btn sm" onclick="printOrder('${o.id}')">🖨 Imprimir / PDF</button></div>`:''}`,
+    onSave: x => {
+      x.qtd = Math.max(1,x.qtd); x.total = Math.max(0, x.preco*x.qtd - x.desconto);
+      if(o){ const p0=P(o.produtoId); if(p0 && o.status!=='cancelado') p0.estoque+=o.qtd; Object.assign(o,x); const p1=P(o.produtoId); if(p1 && o.status!=='cancelado') p1.estoque=Math.max(0,p1.estoque-o.qtd); toast('Pedido atualizado ✓'); }
+      else { const num=Math.max(1000,...db.orders.map(z=>+z.num||0))+1; const no={id:uid(),num,...x}; db.orders.push(no); const p=P(x.produtoId); if(p && x.status!=='cancelado') p.estoque=Math.max(0,p.estoque-x.qtd);
+        if(pre._deal){ const dd=db.deals.find(z=>z.id===pre._deal); if(dd) dd.pedidoId=no.id; }
+        db.tasks.push({id:uid(),titulo:`Pós-venda pedido #${no.num}`,clienteId:x.clienteId,tipo:'Pós-venda',data:addDays(7,parseD(x.entrega||TODAY())),feito:false});
+        toast(`Pedido #${no.num} criado ✓ · Pós-venda agendado`); }
+    },
+    onDelete: o ? () => { const p=P(o.produtoId); if(p && o.status!=='cancelado') p.estoque+=o.qtd; db.orders = db.orders.filter(x=>x.id!==id); } : null
+  });
+  const g = n => form.querySelector(`[name=${n}]`);
+  const upd = () => $('#oTotal').textContent = brl(Math.max(0,(+g('preco').value)*(Math.max(1,+g('qtd').value)) - (+g('desconto').value)));
+  ['preco','qtd','desconto'].forEach(n=>g(n).oninput=upd);
+  g('produtoId').onchange = () => { g('preco').value = P(g('produtoId').value)?.preco||0; upd(); };
+  upd();
+}
+function formTask(id, pre={}){
+  closeQuick(); const t = id ? db.tasks.find(x=>x.id===id) : null;
+  openForm({title: t?'Editar tarefa':'Nova tarefa', values: t||{data:TODAY(),...pre},
+    fields:[{k:'titulo',l:'O que fazer',req:1,full:1,ph:'Ex: Ligar para confirmar medidas'},{k:'tipo',l:'Tipo',t:'select',opts:TIPOS_TAREFA},{k:'data',l:'Quando',t:'date',req:1},
+      {k:'clienteId',l:'Cliente (opcional)',t:'select',opts:[['','— Nenhum —'],...clientOpts()],full:1}],
+    onSave: x => { if(t) Object.assign(t,x); else db.tasks.push({id:uid(),...x,feito:false}); toast('Tarefa salva ✓'); },
+    onDelete: t ? () => { db.tasks = db.tasks.filter(x=>x.id!==id); } : null
+  });
+}
+const HEXES = [['#5B5F66','Cinza Grafite'],['#A8622E','Caramelo'],['#C9B79C','Bege'],['#235E6F','Azul Petróleo'],['#E4DED3','Off-white'],['#6E7A4A','Verde Oliva'],['#C98B8B','Rosê'],['#2B2B2B','Preto'],['#7A2E2E','Vinho'],['#8C7B6B','Fendi'],['#3E4A7A','Azul Marinho'],['#D4A84B','Mostarda']];
+function formProduct(id){
+  closeQuick(); const p = id ? P(id) : null;
+  openForm({title: p?'Editar produto':'Novo produto', values: p||{hex:'#5B5F66',estoque:1},
+    fields:[{k:'nome',l:'Nome do modelo',req:1,full:1},{k:'categoria',l:'Categoria',t:'select',opts:['Retrátil','Canto','Sofá-cama','Clássico','Modular','Poltrona','Puff','Outro']},
+      {k:'tecido',l:'Tecido',t:'select',opts:['Suede','Linho','Veludo','Bouclê','Couro','Couro sintético','Chenille','Algodão']},
+      {k:'cor',l:'Nome da cor',req:1},{k:'hex',l:'Tom (visual)',t:'select',opts:HEXES},
+      {k:'preco',l:'Preço de venda (R$)',t:'number',req:1},{k:'custo',l:'Custo (R$)',t:'number'},{k:'estoque',l:'Estoque (un.)',t:'number'}],
+    onSave: x => { if(p) Object.assign(p,x); else db.products.push({id:uid(),...x}); toast('Produto salvo ✓'); },
+    onDelete: p ? () => { db.products = db.products.filter(x=>x.id!==id); } : null
+  });
+}
+
+/* ============ IMPRESSÃO ============ */
+function printOrder(id){
+  const o=db.orders.find(x=>x.id===id), c=C(o.clienteId), p=P(o.produtoId);
+  const w=window.open('','_blank'); if(!w) return toast('Permita pop-ups para imprimir');
+  w.document.write(`<html><head><title>Pedido #${o.num}</title><style>body{font-family:Inter,Arial;padding:40px;color:#1E1B18}h1{margin:0}table{width:100%;border-collapse:collapse;margin:24px 0}td,th{padding:10px;border-bottom:1px solid #ddd;text-align:left}.r{text-align:right}.tot{font-size:22px;font-weight:800}</style></head><body>
+  <div style="display:flex;justify-content:space-between;align-items:flex-start"><div><h1>${esc(db.config.loja)}</h1><p style="color:#777">Pedido de venda</p></div><div style="text-align:right"><h2 style="margin:0">#${o.num}</h2><p>${fmtDL(o.data)}</p></div></div>
+  <p><b>Cliente:</b> ${esc(c?.nome)}<br><b>Telefone:</b> ${esc(c?.tel)}<br><b>Endereço:</b> ${esc(c?.bairro||'')}</p>
+  <table><tr><th>Produto</th><th>Qtd</th><th class="r">Unitário</th><th class="r">Subtotal</th></tr><tr><td>${esc(p?.nome)} — ${esc(p?.tecido)} ${esc(p?.cor)}</td><td>${o.qtd}</td><td class="r">${brl(o.preco)}</td><td class="r">${brl(o.preco*o.qtd)}</td></tr>
+  ${o.desconto?`<tr><td colspan="3" class="r">Desconto</td><td class="r">- ${brl(o.desconto)}</td></tr>`:''}<tr><td colspan="3" class="r"><b>Total</b></td><td class="r tot">${brl(o.total)}</td></tr></table>
+  <p><b>Pagamento:</b> ${esc(o.pagamento)} · <b>Previsão de entrega:</b> ${fmtDL(o.entrega)}</p>${o.obs?`<p><b>Obs:</b> ${esc(o.obs)}</p>`:''}
+  <p style="margin-top:60px;border-top:1px solid #000;width:280px;padding-top:6px">Assinatura do cliente</p><script>window.print()<\/script></body></html>`);
+  w.document.close();
+}
+
+/* ============ EXPORT / IMPORT ============ */
+function download(name, content, type){ const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([content],{type})); a.download=name; a.click(); URL.revokeObjectURL(a.href); }
+function exportJSON(){ download(`backup-sofacrm-${TODAY()}.json`, JSON.stringify(db,null,2), 'application/json'); toast('Backup baixado ✓'); }
+function importJSON(file){ if(!file) return; const r=new FileReader(); r.onload=()=>{ try{ const d=JSON.parse(r.result); if(!d.clients||!d.orders) throw 0; db=d; save(); render(); toast('Backup restaurado ✓'); }catch(e){ toast('Arquivo inválido'); } }; r.readAsText(file); }
+function exportCSV(){
+  const rows=[['Nome','Telefone','Email','Bairro','Origem','Cadastro','Pedidos','Total gasto']];
+  db.clients.forEach(c=>{const s=clientStats(c.id); rows.push([c.nome,c.tel,c.email,c.bairro,c.origem,c.criado,s.pedidos,s.total.toFixed(2).replace('.',',')]);});
+  download(`clientes-${TODAY()}.csv`, '﻿'+rows.map(r=>r.map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(';')).join('\n'), 'text/csv'); toast('CSV exportado ✓');
+}
+
+/* ============ UI HELPERS ============ */
+function askConfirm(msg,onYes){ modal(`<div class="modal" style="width:min(420px,100%)"><div class="modal-b" style="padding:26px 24px 8px"><h2 style="font-size:17px;margin-bottom:8px">Confirmar</h2><p class="muted">${esc(msg)}</p></div><div class="modal-f" style="border:0"><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn primary" id="yesBtn" style="background:var(--red);border-color:var(--red)">Sim, confirmar</button></div></div>`); $('#yesBtn').onclick=()=>{closeModal();onYes();}; }
+function modal(html){ $('#modalRoot').innerHTML = `<div class="overlay" onmousedown="if(event.target===this)closeModal()">${html}</div>`; }
+function closeModal(){ $('#modalRoot').innerHTML=''; if(pendingRender){ pendingRender=false; render(); } }
+let tt; function toast(m){ document.querySelector('.toast')?.remove(); const d=document.createElement('div'); d.className='toast'; d.textContent=m; document.body.appendChild(d); clearTimeout(tt); tt=setTimeout(()=>d.remove(),2600); }
+function toggleQuick(e){ e.stopPropagation(); const m=$('#quickMenu'); m.style.display=m.style.display==='none'?'block':'none'; }
+function closeQuick(){ $('#quickMenu').style.display='none'; }
+function toggleTheme(){ const t = document.documentElement.dataset.theme==='dark'?'light':'dark'; document.documentElement.dataset.theme=t; try{localStorage.setItem('sofacrm_tema',t);}catch(e){} }
+function confetti(){
+  const cols=['#B8643A','#2E9E6A','#D99A2B','#3C6FD1','#C2477A'];
+  for(let i=0;i<60;i++){ const s=document.createElement('div'); const x=Math.random()*100;
+    s.style.cssText=`position:fixed;top:-10px;left:${x}vw;width:8px;height:12px;background:${cols[i%5]};z-index:300;border-radius:2px;pointer-events:none`;
+    document.body.appendChild(s);
+    s.animate([{transform:'translateY(0) rotate(0)',opacity:1},{transform:`translateY(${90+Math.random()*20}vh) translateX(${(Math.random()-.5)*200}px) rotate(${Math.random()*720}deg)`,opacity:0}],{duration:1600+Math.random()*1200,easing:'cubic-bezier(.2,.6,.4,1)'}).onfinish=()=>s.remove(); }
+}
+document.addEventListener('click', closeQuick);
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+window.addEventListener('hashchange', ()=>{ const v=location.hash.slice(1); if(v!==state.view && VIEWS.find(x=>x.id===v)){ state.view=v; render(); } });
+$('#globalSearch').addEventListener('input', e=>{
+  state.q = e.target.value;
+  if(['painel','ia','tarefas','config'].includes(state.view) && state.q){ state.view='clientes'; location.hash='clientes'; }
+  const pos = e.target.selectionStart; render(); e.target.focus(); e.target.setSelectionRange(pos,pos);
+});
+
+try{ document.documentElement.dataset.theme = localStorage.getItem('sofacrm_tema') || 'light'; }catch(e){}
+(async function boot(){
+  if(!CLOUD){ db = load() || seed(); render(); return; }
+  db = emptyDB(); renderNav();
+  sb = supabase.createClient(CFG.supabaseUrl, CFG.supabaseKey);
+  const recovery = /type=(recovery|invite)/.test(location.hash);
+  sb.auth.onAuthStateChange((ev, s) => { if(ev==='PASSWORD_RECOVERY'){ session = s; loginScreen('nova'); } });
+  const {data:{session:s}} = await sb.auth.getSession();
+  if(recovery && s){ session = s; return loginScreen('nova'); }
+  if(!s) return loginScreen();
+  session = s; enterCloud();
+})();
+</script>
+</body>
+</html>

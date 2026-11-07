@@ -11,6 +11,7 @@ Página de vendas de sites para comércios locais (oferta Black November), com m
 | `css/vendas.css`, `js/vendas.js` | Visual e funcionamento da página |
 | `landing-pages/` | 10 modelos demonstrativos de sites para comércios de Águas Claras |
 | `img/` | Imagens dos modelos |
+| `projetos/sofacrm/` | Demonstração do **SofáCRM** (case de sistema com IA para loja de sofás, com dados fictícios) |
 
 ## Antes de divulgar
 
