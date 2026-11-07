@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Lara · Conteúdo exclusivo</title>
+<meta name="description" content="Conteúdo exclusivo da Lara. Apenas para maiores de 18 anos.">
+<meta name="rating" content="adult">
+<meta name="theme-color" content="#0b0507">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lara.css">
+</head>
+<body class="locked">
+
+<!-- Verificação de idade -->
+<div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-t">
+  <div class="gate-box">
+    <span class="gate-18">18+</span>
+    <h2 id="gate-t">Conteúdo para maiores de 18 anos</h2>
+    <p>Esta página leva a conteúdo adulto. Para continuar, confirme que você tem 18 anos ou mais.</p>
+    <button class="btn btn-main" type="button" id="gate-ok">Tenho 18 anos ou mais · Entrar</button>
+    <a class="gate-out" href="https://www.google.com">Sair</a>
+  </div>
+</div>
+
+<main>
+<!-- Capa -->
+<section class="hero">
+  <div class="hero-photo"><img data-src="fotoCapa" alt="" onerror="this.remove()"><span class="ph-txt">foto de capa</span></div>
+  <div class="hero-shade"></div>
+  <div class="hero-in">
+    <p class="handle" data-needs="arroba">@<span data-cfg="arroba"></span></p>
+    <h1 data-cfg="nome">Lara</h1>
+    <p class="frase" data-cfg="frase"></p>
+    <p class="sub" data-cfg="subfrase"></p>
+    <div class="stats">
+      <span data-needs="numeroFotos"><b data-cfg="numeroFotos"></b> fotos</span>
+      <span data-needs="numeroVideos"><b data-cfg="numeroVideos"></b> vídeos</span>
+    </div>
+    <a class="btn btn-main btn-lg" data-of href="#">Desbloquear meu conteúdo
+      <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/></svg></a>
+    <p class="promo-pill" data-needs="promo">✨ <span data-cfg="promo"></span></p>
+  </div>
+  <span class="scroll" aria-hidden="true"></span>
+</section>
+
+<!-- Prévia bloqueada -->
+<section class="sec wrap">
+  <p class="kicker">Só para assinantes</p>
+  <h2>O que fica <em>só lá dentro</em></h2>
+  <div class="grid" id="previas"></div>
+  <a class="btn btn-ghost" data-of href="#">Ver tudo sem censura →</a>
+</section>
+
+<!-- Benefícios -->
+<section class="sec wrap">
+  <p class="kicker">Ao assinar</p>
+  <h2>O que te espera</h2>
+  <ul class="perks" id="perks"></ul>
+</section>
+
+<!-- Sobre -->
+<section class="sec wrap about">
+  <div class="about-photo"><img data-src="fotoSobre" alt="" onerror="this.remove()"><span class="ph-txt">foto sobre</span></div>
+  <div>
+    <p class="kicker">Prazer</p>
+    <h2>Eu sou a <em data-cfg="nome">Lara</em></h2>
+    <p class="about-t" data-cfg="sobre"></p>
+  </div>
+</section>
+
+<!-- Oferta -->
+<section class="sec wrap">
+  <div class="offer">
+    <p class="kicker">Assinatura</p>
+    <h2>Entre para o meu <em>círculo íntimo</em></h2>
+    <p class="promo-big" data-needs="promo" data-cfg="promo"></p>
+    <p class="price" data-needs="preco">R$ <b data-cfg="preco"></b><small>/mês</small></p>
+    <div class="cd" data-needs="promoAte"><span>A promoção termina em</span><b id="cd">--</b></div>
+    <a class="btn btn-main btn-lg block" data-of href="#">Quero assinar agora</a>
+    <p class="note">Pagamento feito com segurança pelo próprio OnlyFans. Você pode cancelar quando quiser.</p>
+  </div>
+</section>
+
+<!-- Redes -->
+<section class="sec wrap socials" id="redes">
+  <p class="kicker">Me segue também</p>
+  <div class="soc">
+    <a data-net="instagram" target="_blank" rel="noopener">Instagram</a>
+    <a data-net="tiktok" target="_blank" rel="noopener">TikTok</a>
+    <a data-net="twitter" target="_blank" rel="noopener">X / Twitter</a>
+  </div>
+</section>
+</main>
+
+<footer class="footer wrap">
+  <p>🔞 Conteúdo destinado exclusivamente a maiores de 18 anos.</p>
+  <p>© <span id="ano">2026</span> <span data-cfg="nome">Lara</span>. Todos os direitos reservados.</p>
+</footer>
+
+<a class="sticky" data-of href="#"><span><b data-cfg="nome">Lara</b> · conteúdo exclusivo</span><b>Entrar</b></a>
+<div class="toast" role="status" aria-live="polite"></div>
+
+<script src="config.js"></script>
+<script src="lara.js"></script>
+</body>
+</html>
